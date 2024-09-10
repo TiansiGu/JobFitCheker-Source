@@ -85,13 +85,7 @@ Once both the backend and frontend are set up, you can run the full stack applic
   OR
 - **Build the frontend and serve it via the backend (production mode):** Build and copy the frontend as outlined above, and the frontend will be available at `http://localhost:8080`.
 
-### 6. Deployment
-To deploy the app:
-- You can deploy the backend to a cloud server (such as AWS EC2).
-- Make sure to configure security groups to allow traffic on ports 8080 (backend) and 5432 (PostgreSQL).
-- Set up CI/CD pipelines to automatically deploy your application with each update.
-
-### 7. Troubleshooting
+### 6. Troubleshooting
 If the backend cannot connect to the PostgreSQL database, verify that:
 - The database URL, username, and password are correct.
 - Security groups in AWS (if applicable) allow access from your IP (this should be covered if it's in local).
