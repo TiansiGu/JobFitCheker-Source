@@ -9,6 +9,7 @@ public class WebController {
     @GetMapping(value = { "/", "/{path:[^.]*}" })
     public String forwardToIndex() {
         // Forward all non-API requests to index.html
-        return "forward:/index.html";
+        // return "forward:/index.html";
+        return "Default showup";
     }
 }
