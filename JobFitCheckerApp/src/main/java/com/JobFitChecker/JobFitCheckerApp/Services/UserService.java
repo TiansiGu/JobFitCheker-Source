@@ -4,10 +4,8 @@ import com.JobFitChecker.JobFitCheckerApp.Model.User;
 import com.JobFitChecker.JobFitCheckerApp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -17,12 +15,15 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     public User createUser(User user) {
+        // Encrypt the password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

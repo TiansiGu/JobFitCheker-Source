@@ -1,0 +1,93 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Consistent background color */
+}
+
+#divMain {
+    display: grid;
+    height: 100vh;
+    grid-template-areas: 
+        "header header header"
+        "nav content content"
+        "footer footer footer";
+    grid-template-rows: 100px 1fr auto; /* Adjust the height of header and footer */
+    grid-template-columns: 20% 1fr 20%; /* More balanced space allocation */
+    gap: 10px; /* Consistent gap for simplicity */
+    margin: 0px;
+}
+
+header, article, nav, footer {
+    padding: 1.2em;
+    background-color: #fff; /* Solid color for better readability */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+header {
+    grid-area: header;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav#topNavigation {
+    display: flex;
+    gap: 15px;
+    justify-content: center; /* Centered navigation items */
+}
+
+nav#topNavigation .nav-item {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+nav#topNavigation .nav-item:hover {
+    text-decoration: underline;
+}
+
+nav#sideNavigation {
+    grid-area: nav;
+    display: flex;
+    flex-direction: column; /* Vertical layout for navigation links */
+}
+
+nav#sideNavigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav#sideNavigation .nav-item {
+    margin: 10px 0;
+}
+
+nav#sideNavigation .nav-link {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #e1e1e1; /* Lighter background for links */
+    border-radius: 5px;
+    display: block;
+}
+
+nav#sideNavigation .nav-link:hover {
+    background-color: #ccc; /* Darker on hover */
+}
+
+#contents {
+    grid-area: content;
+    overflow-y: auto; /* Enables scrolling for content area */
+}
+
+footer {
+    grid-area: footer;
+    text-align: center;
+    background-color: #009688; /* Teal background for footer */
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+}
