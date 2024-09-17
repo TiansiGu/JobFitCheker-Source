@@ -8,6 +8,12 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+/**
+ * This class exists temporarily for disabling spring security CRSF and pswd authentication, so that
+ * developers can easily test controller APIs without authentication. To test spring security behavior,
+ * comment out this class entirely and rebuild project again.
+ * ToDo: Delete this class for production
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityModule {
