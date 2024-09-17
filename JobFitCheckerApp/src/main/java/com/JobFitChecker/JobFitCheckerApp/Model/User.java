@@ -3,23 +3,33 @@ package com.JobFitChecker.JobFitCheckerApp.Model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "User_ID")
-    private Integer userId;
 
     @Column(name = "Name")
     private String name;
 
-    public Integer getUserId() {
-        return userId;
+    @Column(name = "Email")
+    private String email;
+
+    @Column(name = "Password")
+    private String password;
+
+    // Constructor without userId (since it's auto-generated)
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+
+    // Default constructor (required by JPA)
+    public User() {
+
     }
+
 
     public String getName() {
         return name;
@@ -29,4 +39,19 @@ public class User {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
