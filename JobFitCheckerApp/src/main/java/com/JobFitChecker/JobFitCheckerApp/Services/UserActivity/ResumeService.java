@@ -19,13 +19,12 @@ public final class ResumeService {
     private static final Logger log = LoggerFactory.getLogger(ResumeService.class);
 
     private final S3Client s3Client;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    public ResumeService(S3Client s3AsyncClient) {
-        this.s3Client = s3AsyncClient;
+    public ResumeService(UserRepository userRepository, S3Client s3Client) {
+        this.userRepository = userRepository;
+        this.s3Client = s3Client;
     }
 
     public void putResume(long userId, MultipartFile file) throws Exception {
