@@ -151,7 +151,13 @@
 			<artifactId>langchain4j-document-parser-apache-pdfbox</artifactId>
 			<version>0.34.0</version>
 		</dependency>
-	</dependencies>
+	
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>8.0.1</version>
+		</dependency>
+ </dependencies>
 
 
 	<build>

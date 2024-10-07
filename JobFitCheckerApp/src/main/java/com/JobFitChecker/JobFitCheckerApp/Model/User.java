@@ -18,6 +18,9 @@ public class User {
     @Column(name = "Password")
     private String password;
 
+    @Column(name = "ResumeKey")
+    private String resumeKey;
+
     // Constructor without userId (since it's auto-generated)
     public User(String username, String email, String password) {
         this.username = username;
@@ -25,12 +28,14 @@ public class User {
         this.password = password;
     }
 
-
     // Default constructor (required by JPA)
     public User() {
 
     }
 
+    public Long getUserId() {
+        return id;
+    }
 
     public String getUsername() {
         return username;

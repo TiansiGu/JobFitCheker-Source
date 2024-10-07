@@ -86,7 +86,7 @@ nav#sideNavigation .nav-link:hover {
 footer {
     grid-area: footer;
     text-align: center;
-    background-color: #009688; /* Teal background for footer */
+    background-color: lightblue; /* Teal background for footer */
     color: white;
     padding: 10px 0;
     width: 100%;

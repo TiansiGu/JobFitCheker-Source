@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 
-function Login() {
+function Login({ setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -14,11 +14,13 @@ function Login() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('http://localhost:8080/auth/login', {
+      const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Correct: credentials is a property of the request config, not headers
+
         body: JSON.stringify({ email, password }),
       });
 
@@ -28,15 +30,10 @@ function Login() {
 
       const data = await response.json();
 
-      if (response.ok) {
-        // Store the token and any other info in localStorage or context
-        localStorage.setItem('token', data.token); // Example: Storing token
-        // Navigate to another route upon successful login
-        console.log('Login Successfully');
-        navigate('/');
-      } else {
-        throw new Error(data.message || 'Unable to login');
-      }
+      // Update user state
+      setUser(data);
+      console.log('Login Successful');
+      navigate('/home');
     } catch (error) {
       setErrorMessage(error.message);
     }
