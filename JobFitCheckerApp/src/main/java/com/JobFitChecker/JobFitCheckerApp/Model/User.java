@@ -2,8 +2,6 @@ package com.JobFitChecker.JobFitCheckerApp.Model;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -35,6 +33,7 @@ public class User {
     @Column(name = "PreviousJobTitles")
     private String previousJobTitles;
 
+    @Lob
     @Column(name = "Skills")
     private String skills;
 

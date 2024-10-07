@@ -10,7 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import static com.JobFitChecker.JobFitCheckerApp.Services.ResumePostProcessWorkflow.ApiKey.OPENAI_API_KEY;
+import static com.JobFitChecker.JobFitCheckerApp.utils.Constant.OPENAI_API_KEY;
+
 
 @Component
 public final class ExtractQualificationActivity {
