@@ -1,20 +1,21 @@
 package com.JobFitChecker.JobFitCheckerApp.Controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController  // Use @RestController instead of @Controller
+@RestController // Use @RestController instead of @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class WebController {
 
-    @GetMapping(value = { "/", "/{path:[^.]*}" })
-    public String forwardToIndex() {
-        // Forward all non-API requests to index.html
-        return "Default showup";
+    @RequestMapping("/")
+    public String defaultShowup() {
+        return "Default page for back end";
     }
 
     @GetMapping("/welcome")
     public String welcome() {
-        // Return plain text or JSON that can be consumed by the frontend
         return "Welcome to JobFitChecker!";
     }
 }

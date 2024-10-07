@@ -6,7 +6,7 @@ function RegistrationSuccessful() {
 
   useEffect(() => {
     setTimeout(() => {
-      navigate('/home');
+      navigate('/');
     }, 5000);
   }, [navigate]);
 

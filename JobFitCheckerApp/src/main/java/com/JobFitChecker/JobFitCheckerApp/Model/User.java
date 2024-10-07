@@ -7,9 +7,10 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "Name")
-    private String name;
+    @Column(name = "Username")
+    private String username;
 
     @Column(name = "Email")
     private String email;
@@ -17,26 +18,31 @@ public class User {
     @Column(name = "Password")
     private String password;
 
+    @Column(name = "ResumeKey")
+    private String resumeKey;
+
     // Constructor without userId (since it's auto-generated)
-    public User(String name, String email, String password) {
-        this.name = name;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }
-
 
     // Default constructor (required by JPA)
     public User() {
 
     }
 
-
-    public String getName() {
-        return name;
+    public Long getUserId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getEmail() {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for programmatic navigation
 import '../styles/register.css';
 
 function Register() {
@@ -9,24 +10,46 @@ function Register() {
     repeatPassword: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Example validation
     if (formData.password !== formData.repeatPassword) {
       setErrorMessage('Passwords do not match');
       return;
     }
     setErrorMessage('');
-    // POST request to server would go here
+
+    try {
+      const response = await fetch('http://localhost:8080/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (response.ok) {
+        navigate('/registrationSuccessful'); // Change to your successful registration route
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || 'Registration failed');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred during registration');
+    }
   };
 
   return (
@@ -37,24 +60,20 @@ function Register() {
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">
-          <b>Name</b>
+          <b>User Name</b>
         </label>
-        <br />
         <input
           type="text"
           id="username"
           name="username"
-          placeholder="Enter your name"
+          placeholder="Enter your user name"
           value={formData.username}
           onChange={handleChange}
           required
         />
-        <br />
-        <br />
         <label htmlFor="email">
           <b>Email</b>
         </label>
-        <br />
         <input
           type="email"
           id="email"
@@ -64,12 +83,9 @@ function Register() {
           onChange={handleChange}
           required
         />
-        <br />
-        <br />
         <label htmlFor="password">
           <b>Password</b>
         </label>
-        <br />
         <input
           type="password"
           id="password"
@@ -79,12 +95,9 @@ function Register() {
           value={formData.password}
           onChange={handleChange}
         />
-        <br />
-        <br />
         <label htmlFor="psw_repeat">
           <b>Repeat Password</b>
         </label>
-        <br />
         <input
           type="password"
           name="repeatPassword"
@@ -94,8 +107,6 @@ function Register() {
           value={formData.repeatPassword}
           onChange={handleChange}
         />
-        <br />
-        <br />
         <button type="submit" id="register">
           Register
         </button>
