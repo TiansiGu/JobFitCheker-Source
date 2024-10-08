@@ -21,6 +21,22 @@ public class User {
     @Column(name = "ResumeKey")
     private String resumeKey;
 
+    @Column(name = "Degree")
+    private String degree;
+
+    @Column(name = "Major")
+    private String major;
+
+    @Column(name = "GraduationDate")
+    private String graduationDate;
+
+    @Column(name = "PreviousJobTitles")
+    private String previousJobTitles;
+
+    @Lob
+    @Column(name = "Skills")
+    private String skills;
+
     // Constructor without userId (since it's auto-generated)
     public User(String username, String email, String password) {
         this.username = username;
