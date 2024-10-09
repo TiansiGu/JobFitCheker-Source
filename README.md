@@ -91,3 +91,11 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 - Security groups in AWS (if applicable) allow access from your IP (this should be covered if it's in local).
 - The PostgreSQL service is running and accessible.
 - For issues with the frontend, check the browser console for errors and verify that the correct API endpoint for the backend is being used.
+
+### 7. Quotations
+- Referred to this video for setting up the database
+> https://www.youtube.com/watch?v=buqBSiEEdQc
+- Referred to this video for connecting front end with the back end
+> https://www.youtube.com/watch?v=qis9sMaiqN4
+- For session management.
+> https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html
