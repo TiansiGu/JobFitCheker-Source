@@ -33,6 +33,7 @@ export default function Profile() {
           email: data.email,
           phoneNumber: data.phoneNumber,
           degree: data.degree,
+          needSponsor: data.needSponsor
         });
         setLoading(false);
       } catch (err) {
