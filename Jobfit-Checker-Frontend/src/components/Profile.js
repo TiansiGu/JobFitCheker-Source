@@ -35,7 +35,7 @@ export default function Profile() {
           phoneNumber: data.phoneNumber,
           degree: data.degree,
           needSponsor: data.needSponsor,
-          resumeName: data.resumeKey.split("@")[1]
+          resumeName: data.resumeKey ? data.resumeKey.split("@")[1] : null
         });
         setLoading(false);
       } catch (err) {
@@ -43,7 +43,6 @@ export default function Profile() {
         setLoading(false);
       }
     };
-
     fetchProfile();
   }, []); // Empty dependency array ensures this runs once on mount
 
@@ -84,10 +83,36 @@ export default function Profile() {
         if (!response.ok) {
           throw new Error("Failed to upload resume");
         }
+        // Update the resumeName after successful upload
+        setUser((prevState) => ({
+          ...prevState,
+          resumeName: resume.name, // Use the file name from the uploaded resume
+        }));
         alert("Resume uploaded successfully");
       } catch (err) {
         alert("Error uploading resume: " + err.message);
       }
+    }
+  };
+
+  // Handle resume deletion
+  const handleDeleteResume = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/delete-resume", {
+        method: "DELETE",
+        credentials: "include", // Ensures cookies and sessions are included
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete the resume");
+      }
+      alert("Deleted resume successfully!");
+      setUser((prevState) => ({
+        ...prevState,
+        resumeName: "", // Clear resume from state after deletion
+      }));
+    } catch (err) {
+      alert("Error deleting resume: " + err.message);
     }
   };
 
@@ -189,9 +214,36 @@ export default function Profile() {
           {/* Resume Upload Section */}
           <fieldset>
             <legend><h3>Upload Resume</h3></legend>
-            <p style={{fontSize: "0.8em", color: "grey", margin: 0, padding: 0, textAlign: "left"}}>
-              {user.resumeName ? `Current Resume: ${user.resumeName}` : "No resume"}
-            </p>
+            {user.resumeName ? (
+                <div>
+                  <p
+                      style={{
+                        fontSize: "0.8em",
+                        color: "grey",
+                        margin: 0,
+                        padding: 0,
+                        textAlign: "left",
+                      }}
+                  >
+                    Current Resume: {user.resumeName}
+                  </p>
+                  <button type="button" onClick={handleDeleteResume}>
+                    Delete Resume
+                  </button>
+                </div>
+            ) : (
+                <p
+                    style={{
+                      fontSize: "0.8em",
+                      color: "grey",
+                      margin: 0,
+                      padding: 0,
+                      textAlign: "left",
+                    }}
+                >
+                  No resume
+                </p>
+            )}
             <label htmlFor="resume"></label>
             <input type="file" id="resume" name="resume" onChange={handleFileChange}/>
           </fieldset>
