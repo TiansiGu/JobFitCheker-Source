@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public final class ResumePostProcessor {
@@ -70,10 +71,14 @@ public final class ResumePostProcessor {
         public void run() {
             while (isRunning) {
                 try {
-                    List<String> resumeTexts = pollResumeActivity.pollFromSqsQueue();
+                    List<Map.Entry<Long, String>> resumeTexts = pollResumeActivity.pollFromSqsQueue();
 
-                    for (String resumeText : resumeTexts) {
-                        Qualification qualification = extractQualificationActivity.extractDataFromResumeText(resumeText);
+                    for (Map.Entry<Long, String> resumeTextEntry : resumeTexts) {
+                        long userId = resumeTextEntry.getKey();
+                        String resumeText = resumeTextEntry.getValue();
+
+                        Qualification qualification = extractQualificationActivity.extractDataFromResumeText(userId, resumeText);
+
                         updateQualificationActivity.updateQualification(qualification);
                     }
 

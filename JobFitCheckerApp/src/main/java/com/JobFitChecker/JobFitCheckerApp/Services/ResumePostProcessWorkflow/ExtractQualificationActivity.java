@@ -30,7 +30,7 @@ public final class ExtractQualificationActivity {
         Qualification extract(@V("text") String text, @V("id") long id);
     }
 
-    public Qualification extractDataFromResumeText(String resumeText) {
+    public Qualification extractDataFromResumeText(long userId, String resumeText) {
         ChatLanguageModel model = OpenAiChatModel.builder()
                 .apiKey(OPENAI_API_KEY)
                 .modelName(OpenAiChatModelName.GPT_4_O_MINI)
@@ -38,14 +38,15 @@ public final class ExtractQualificationActivity {
                 .logResponses(true)
                 .build();
 
-        long id = 7L; // ToDo: Change to dynamic fetching from session
+        // long id = 7L; // ToDo: Change to dynamic data
         Extractor extractor = AiServices.create(Extractor.class, model);
-        Qualification qualification = extractor.extract(resumeText, id);
-        log.info("Extracted resume metadata for user with user id ${} ", id);
+        Qualification qualification = extractor.extract(resumeText, userId);
+        log.info("Extracted resume metadata for user with user id ${} ", userId);
 
         return qualification;
     }
 
+    // ToDo: Delete this partial test before production
     public static void main(String[] args) {
         String text = "Tiansi Gu \u2029\n" +
                 "tiansigu10@gmail.com |  (626) 637-7982 |  San Francisco, California | linkedin.com/in/tiansi-gu-51796b267/ \n" +
@@ -132,7 +133,7 @@ public final class ExtractQualificationActivity {
                 "● Tools and Technologies:\n" +
                 "GitHub/Bitbucket, Jira/Figma, Jenkins, Firebase, GCloud, Linux(Ubuntu), docker, , MongoDB, PostgreSQL";
         ExtractQualificationActivity extractQualificationData = new ExtractQualificationActivity();
-        Qualification q = extractQualificationData.extractDataFromResumeText(text);
+        Qualification q = extractQualificationData.extractDataFromResumeText(7L, text);
         System.out.println(q);
     }
 }

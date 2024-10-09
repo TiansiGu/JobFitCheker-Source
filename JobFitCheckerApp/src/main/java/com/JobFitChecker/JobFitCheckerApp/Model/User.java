@@ -21,11 +21,23 @@ public class User {
     @Column(name = "ResumeKey")
     private String resumeKey;
 
+    @Column(name = "FirstName")
+    private String firstName;
+
+    @Column(name = "LastName")
+    private String lastName;
+
+    @Column(name = "PhoneNumber")
+    private String phoneNumber;
+
     @Column(name = "Degree")
     private String degree;
 
     @Column(name = "Major")
     private String major;
+
+    @Column(name = "NeedSponsor")
+    private String needSponsor;
 
     @Column(name = "GraduationDate")
     private String graduationDate;
@@ -33,8 +45,7 @@ public class User {
     @Column(name = "PreviousJobTitles")
     private String previousJobTitles;
 
-    @Lob
-    @Column(name = "Skills")
+    @Column(name = "Skills", columnDefinition = "TEXT")
     private String skills;
 
     // Constructor without userId (since it's auto-generated)
@@ -75,5 +86,45 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public String getNeedSponsor() {
+        return needSponsor;
+    }
+
+    public void setNeedSponsor(String needSponsor) {
+        this.needSponsor = needSponsor;
     }
 }

@@ -2,6 +2,8 @@ package com.JobFitChecker.JobFitCheckerApp.Controller;
 
 import com.JobFitChecker.JobFitCheckerApp.Model.User;
 import com.JobFitChecker.JobFitCheckerApp.Services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,17 +11,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
+import java.util.HashMap;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
-
-import java.util.HashMap;
 
 @RestController
 // @RequestMapping("/auth") // Base path for all methods in this controller
 @CrossOrigin // Allow all origins, you might want to restrict this in a production
              // environment
 public class UserController {
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -92,10 +93,10 @@ public class UserController {
         // Get the logged in user fron session
         if (session != null) {
             String loggedInUserName = ((User) session.getAttribute("loggedInUser")).getUsername();
-            Long logggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
+            Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
 
             System.out.println("line98: Username: " + loggedInUserName);
-            System.out.println("line98: id: " + logggedInUserId);
+            System.out.println("line98: id: " + loggedInUserId);
 
             // Check if user is logged in (exists in session)
             if (loggedInUserName != null) {
@@ -112,21 +113,18 @@ public class UserController {
         HttpSession session = request.getSession(false); // false prevents creating a new session
         if (session != null) {
             User loggedInUser = (User) session.getAttribute("loggedInUser");
+
             if (loggedInUser != null) {
                 Long loggedInUserId = loggedInUser.getUserId();
-                String loggedInUserName = loggedInUser.getUsername(); // Get username
-                String loggedInUserEmail = loggedInUser.getEmail(); // Get email or other details
+                User userProfile = userService.getUserProfile(loggedInUserId);
 
-                if (loggedInUserId != null) {
+                if (userProfile != null) {
                     // Create a map to hold the user details
-                    Map<String, Object> returnObj = new HashMap<>();
-                    returnObj.put("userId", loggedInUserId);
-                    returnObj.put("name", loggedInUserName);
-                    returnObj.put("email", loggedInUserEmail);
-                    // Add more fields if necessary
-                    System.out.println("line 132 " + returnObj.toString());
+//                    Map<String, Object> returnObj = new HashMap<>();
+//                    returnObj.put("userId", loggedInUserId);
+//                    returnObj.put("email", userProfile.getEmail());
 
-                    return ResponseEntity.ok(returnObj); // Spring will automatically convert Map to JSON
+                    return ResponseEntity.ok(userProfile); // Spring will automatically convert User object to JSON
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found in the database.");
                 }
@@ -135,4 +133,27 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
     }
 
+    // Update Profile information in the database
+    @PutMapping("/update-profile")
+    public ResponseEntity<String> updateProfile(@RequestBody User user, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            User loggedInUser = (User) session.getAttribute("loggedInUser");
+
+            if (loggedInUser != null) {
+                Long loggedInUserId = loggedInUser.getUserId();
+                if (loggedInUserId != null) {
+                    try {
+                        userService.updateUserProfile(loggedInUserId, user);
+                        return ResponseEntity.status(HttpStatus.OK).body("Profile update succeeded");
+                    } catch (Exception ex) {
+                        log.error("Failed to update profile for user {}: ", loggedInUserId, ex);
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Update failed");
+                    }
+                }
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
+    }
 }

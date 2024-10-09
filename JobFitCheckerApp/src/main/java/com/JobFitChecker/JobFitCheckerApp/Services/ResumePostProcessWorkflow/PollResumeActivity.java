@@ -19,8 +19,7 @@ import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageResponse;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
@@ -40,7 +39,7 @@ public final class PollResumeActivity {
         this.s3Client = s3Client;    // S3 client
     }
 
-    public List<String> pollFromSqsQueue() {
+    public List<Map.Entry<Long, String>> pollFromSqsQueue() {
         // Receive up to 10 messages at a time, with a 20-second wait if no messages are available
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(SQS_QUEUE_URL)
@@ -51,7 +50,7 @@ public final class PollResumeActivity {
         ReceiveMessageResponse response = sqsClient.receiveMessage(receiveMessageRequest);
         List<Message> messages = response.messages();
 
-        List<String> resumeTexts = new ArrayList<>();
+        List<Map.Entry<Long, String>> resumeTexts = new ArrayList<>();
         for (Message message : messages) {
             // Extract PDF's object key from the message body (typically JSON)
             List<String> keys = extractObjectKeys(message.body());
@@ -59,9 +58,12 @@ public final class PollResumeActivity {
             // Process the S3 file
             String key = URLDecoder.decode(keys.get(0), StandardCharsets.UTF_8);
             log.info("Polled putResume message from queue: key {} ", key);
+
+            long userId = getUserIdFromKey(key);
             String text = processS3File(S3_BUCKET_NAME, key);
 
-            resumeTexts.add(text);
+            Map.Entry<Long, String> entry = new AbstractMap.SimpleEntry<>(userId, text);
+            resumeTexts.add(entry);
 
             // Delete the message from the queue after loading the text to local
             deleteMessage(message);
@@ -101,5 +103,10 @@ public final class PollResumeActivity {
                 .receiptHandle(message.receiptHandle())
                 .build();
         sqsClient.deleteMessage(deleteMessageRequest);
+    }
+
+    private long getUserIdFromKey(String resumeKey) {
+        String userIdStr = resumeKey.split("@")[0];
+        return Long.parseLong(userIdStr);
     }
 }

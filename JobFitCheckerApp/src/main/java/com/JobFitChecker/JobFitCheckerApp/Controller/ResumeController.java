@@ -1,6 +1,9 @@
 package com.JobFitChecker.JobFitCheckerApp.Controller;
 
+import com.JobFitChecker.JobFitCheckerApp.Model.User;
 import com.JobFitChecker.JobFitCheckerApp.Services.UserActivity.ResumeService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,11 @@ public class ResumeController {
     }
 
     @PostMapping("/upload-resume")
-    public ResponseEntity<String> handleUploadResume(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> handleUploadResume(@RequestParam("resume") MultipartFile file, HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // false to prevent creating a new session if none exists
+        if (session == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
+
         if (file.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload a resume first");
 
@@ -33,8 +40,9 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please only upload PDF resumes");
 
         try {
-            long userId = 7L; //ToDo: fetch real userId from session
-            resumeService.putResume(userId, file);
+            // long userId = 7L; //ToDo: fetch real userId from session
+            Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
+            resumeService.putResume(loggedInUserId, file);
             return ResponseEntity.status(HttpStatus.OK).body("Upload successful");
         } catch (Exception ex) {
             log.error("Failed to upload file {}: ", file.getOriginalFilename() + ex);

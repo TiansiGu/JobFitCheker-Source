@@ -5,6 +5,7 @@ import com.JobFitChecker.JobFitCheckerApp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import java.util.Optional;
 
 
 @Service
@@ -17,6 +18,7 @@ public class UserService {
     }
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     public User createUser(User user) {
         // Encrypt the password before saving
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -25,5 +27,34 @@ public class UserService {
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User getUserProfile(long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return optionalUser.get();
+        }
+        return null;
+    }
+
+    public void updateUserProfile(long id, User user) {
+        Optional<User> optionalExistedUser = userRepository.findById(id);
+        if (optionalExistedUser.isPresent()) {
+            User existedUser = optionalExistedUser.get();
+            if ((user.getEmail() != null))
+                existedUser.setEmail(user.getEmail());
+            if (user.getFirstName() != null)
+                existedUser.setFirstName(user.getFirstName());
+            if (user.getLastName() != null)
+                existedUser.setLastName(user.getLastName());
+            if (user.getPhoneNumber() != null)
+                existedUser.setPhoneNumber(user.getPhoneNumber());
+            if (user.getDegree() != null)
+                existedUser.setDegree(user.getDegree());
+            if (user.getNeedSponsor() != null)
+                existedUser.setNeedSponsor(user.getNeedSponsor());
+
+            userRepository.save(existedUser);
+        }
     }
 }
