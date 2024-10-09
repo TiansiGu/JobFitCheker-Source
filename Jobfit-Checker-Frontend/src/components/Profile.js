@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'; // Make sure to import useState and useEffect
+import React, { useState, useEffect } from "react"; // Make sure to import useState and useEffect
 
 export default function Profile() {
   // Create local state to handle form inputs and profile data
   const [user, setUser] = useState({
-    userName: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    degree: '',
+    firstName: null,
+    lastName: null,
+    email: null,
+    phoneNumber: null,
+    degree: null,
+    needSponsor: null,
   });
   const [resume, setResume] = useState(null); // State to hold the file
 
@@ -19,15 +19,15 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch('http://localhost:8080/profile', {
-          credentials: 'include', // Ensures cookies and sessions are included
+        const response = await fetch("http://localhost:8080/profile", {
+          credentials: "include", // Ensures cookies and sessions are included
         });
         if (!response.ok) {
-          throw new Error('Failed to fetch profile data');
+          throw new Error("Failed to fetch profile data");
         }
         const data = await response.json();
         setUser({
-          userName: data.userName,
+          // userName: data.userName,
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
@@ -47,20 +47,44 @@ export default function Profile() {
   // Handle form submission to update profile information
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('http://localhost:8080/profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to update profile');
+
+    const action = e.nativeEvent.submitter.value;
+
+    if (action === "Update Profile") {
+      try {
+        const response = await fetch("http://localhost:8080/update-profile", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+          credentials: "include", // Ensures cookies and sessions are included
+        });
+        if (!response.ok) {
+          throw new Error("Failed to update profile");
+        }
+        if (response.ok)
+          console.log("set user fields are" + JSON.stringify(user));
+        alert("Profile updated successfully");
+      } catch (err) {
+        alert("Error updating profile: " + err.message);
       }
-      alert('Profile updated successfully');
-    } catch (err) {
-      alert('Error updating profile: ' + err.message);
+    } else if (action === "Upload Resume") {
+      try {
+        const formData = new FormData();
+        formData.append("resume", resume);
+        const response = await fetch("http://localhost:8080/upload-resume", {
+          method: "POST",
+          body: formData,
+          credentials: "include", // Ensures cookies and sessions are included
+        });
+        if (!response.ok) {
+          throw new Error("Failed to upload resume");
+        }
+        alert("Resume uploaded successfully");
+      } catch (err) {
+        alert("Error uploading resume: " + err.message);
+      }
     }
   };
 
@@ -80,30 +104,11 @@ export default function Profile() {
 
   return (
     <div className="profile-container">
-      <h1>Profile Page</h1>
-      <div className="profile-details">
-        <p>
-          <strong>User Name:</strong> {user.userName || 'Guest'}
-        </p>
-        <p>
-          <strong>Name:</strong> {user.firstName || 'Guest'}{' '}
-          {user.lastName || ''}
-        </p>
-        <p>
-          <strong>Email:</strong> {user.email || 'Not provided'}
-        </p>
-        <p>
-          <strong>Phone:</strong> {user.phoneNumber || 'Not provided'}
-        </p>
-        <p>
-          <strong>Degree:</strong> {user.degree || 'Not provided'}
-        </p>
-      </div>
+      <h1>My Profile</h1>
 
       {/* Update User Information Form */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name:</label>
-        <br />
         <input
           type="text"
           id="firstName"
@@ -114,7 +119,6 @@ export default function Profile() {
         <br />
         <br />
         <label htmlFor="lastName">Last Name:</label>
-        <br />
         <input
           type="text"
           id="lastName"
@@ -125,7 +129,6 @@ export default function Profile() {
         <br />
         <br />
         <label htmlFor="email">Email:</label>
-        <br />
         <input
           type="email"
           id="email"
@@ -136,7 +139,6 @@ export default function Profile() {
         <br />
         <br />
         <label htmlFor="phoneNumber">Phone Number:</label>
-        <br />
         <input
           type="tel"
           id="phoneNumber"
@@ -146,8 +148,7 @@ export default function Profile() {
         />
         <br />
         <br />
-        <label htmlFor="degree">Degree Type:</label>
-        <br />
+        <label htmlFor="degree">Degree:</label>
         <input
           type="text"
           id="degree"
@@ -157,7 +158,21 @@ export default function Profile() {
         />
         <br />
         <br />
-        <label htmlFor="resume">Update Resume:</label>
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <label htmlFor="needSponsor">Need Sponsorship or not: </label>
+          <select
+            name="needSponsor"
+            value={user.needSponsor}
+            onChange={handleChange}
+          >
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <br />
+        <br />
+        <input type="submit" value="Update Profile" />
         <br />
         <file></file>
         <br />
@@ -172,7 +187,7 @@ export default function Profile() {
         />
         <br />
         <br />
-        <input type="submit" value="Update Profile" />
+        <input type="submit" value="Upload Resume" />
       </form>
     </div>
   );
