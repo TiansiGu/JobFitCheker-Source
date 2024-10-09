@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // Make sure to import useState and useEffect
+import React, { useState, useEffect } from "react";
 
 export default function Profile() {
   // Create local state to handle form inputs and profile data
@@ -9,9 +9,9 @@ export default function Profile() {
     phoneNumber: null,
     degree: null,
     needSponsor: null,
+    resumeName: null,
   });
   const [resume, setResume] = useState(null); // State to hold the file
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,6 +26,7 @@ export default function Profile() {
           throw new Error("Failed to fetch profile data");
         }
         const data = await response.json();
+        console.log("resume key: " + JSON.stringify(data));
         setUser({
           // userName: data.userName,
           firstName: data.firstName,
@@ -33,7 +34,8 @@ export default function Profile() {
           email: data.email,
           phoneNumber: data.phoneNumber,
           degree: data.degree,
-          needSponsor: data.needSponsor
+          needSponsor: data.needSponsor,
+          resumeName: data.resumeKey.split("@")[1]
         });
         setLoading(false);
       } catch (err) {
@@ -108,88 +110,95 @@ export default function Profile() {
       <h1>My Profile</h1>
 
       {/* Update User Information Form */}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          value={user.firstName}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          value={user.lastName}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={user.email}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="phoneNumber">Phone Number:</label>
-        <input
-          type="tel"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={user.phoneNumber}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="degree">Degree:</label>
-        <input
-          type="text"
-          id="degree"
-          name="degree"
-          value={user.degree}
-          onChange={handleChange}
-        />
-        <br />
-        <br />
-        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-          <label htmlFor="needSponsor">Need Sponsorship or not: </label>
-          <select
-            name="needSponsor"
-            value={user.needSponsor}
-            onChange={handleChange}
-          >
-            <option value="">Select</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-        <br />
-        <br />
-        <input type="submit" value="Update Profile" />
-        <br />
-        <file></file>
-        <br />
-        <br />
-        <label htmlFor="resume">Update Resume:</label>
-        <br />
-        <input
-          type="file"
-          id="resume"
-          name="resume"
-          onChange={handleFileChange}
-        />
-        <br />
-        <br />
-        <input type="submit" value="Upload Resume" />
-      </form>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <legend><h3>Profile Information</h3></legend>
+
+            <label htmlFor="firstName">First Name:</label>
+            <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                value={user.firstName}
+                onChange={handleChange}
+                placeholder="Enter your first name"
+            />
+            <br /><br />
+
+            <label htmlFor="lastName">Last Name:</label>
+            <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                value={user.lastName}
+                onChange={handleChange}
+                placeholder="Enter your last name"
+            />
+            <br /><br />
+
+            <label htmlFor="email">Email:</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value={user.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+            />
+            <br /><br />
+
+            <label htmlFor="phoneNumber">Phone Number:</label>
+            <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={user.phoneNumber}
+                onChange={handleChange}
+                placeholder="Enter your phone number"
+            />
+            <br /><br />
+
+            <label htmlFor="degree">Degree:</label>
+            <input
+                type="text"
+                id="degree"
+                name="degree"
+                value={user.degree}
+                onChange={handleChange}
+                placeholder="Enter your degree"
+            />
+            <br /><br />
+
+            <label htmlFor="needSponsor">Need Sponsorship or not: </label>
+            <select
+                name="needSponsor"
+                value={user.needSponsor}
+                onChange={handleChange}
+            >
+              <option value="">Select</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </fieldset>
+
+          <br />
+          <input type="submit" value="Update Profile" />
+
+          <br /><br />
+
+          {/* Resume Upload Section */}
+          <fieldset>
+            <legend><h3>Upload Resume</h3></legend>
+            <p style={{fontSize: "0.8em", color: "grey", margin: 0, padding: 0, textAlign: "left"}}>
+              {user.resumeName ? `Current Resume: ${user.resumeName}` : "No resume"}
+            </p>
+            <label htmlFor="resume"></label>
+            <input type="file" id="resume" name="resume" onChange={handleFileChange}/>
+          </fieldset>
+
+          <br/>
+          <input type="submit" value="Upload Resume"/>
+        </form>
     </div>
   );
 }

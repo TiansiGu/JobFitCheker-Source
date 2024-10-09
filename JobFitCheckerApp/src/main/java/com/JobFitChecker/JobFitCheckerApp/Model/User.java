@@ -127,4 +127,29 @@ public class User {
     public void setNeedSponsor(String needSponsor) {
         this.needSponsor = needSponsor;
     }
+
+    public String getResumeKey() {
+        return resumeKey;
+    }
+
+    @Override
+    // Added for debugging, might want to delete in the end
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", resumeKey='" + resumeKey + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", degree='" + degree + '\'' +
+                ", major='" + major + '\'' +
+                ", needSponsor='" + needSponsor + '\'' +
+                ", graduationDate='" + graduationDate + '\'' +
+                ", previousJobTitles='" + previousJobTitles + '\'' +
+                ", skills='" + skills + '\'' +
+                '}';
+    }
 }
