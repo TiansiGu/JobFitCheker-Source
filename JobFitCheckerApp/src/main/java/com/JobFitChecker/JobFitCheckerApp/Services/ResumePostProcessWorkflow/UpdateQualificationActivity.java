@@ -29,7 +29,7 @@ public final class UpdateQualificationActivity {
 
         userRepository.updateQualification(id, degree, major, graduationDate, prevJobTitles, skills);
 
-        log.info("Updated qualification data for user ${} in PostgreSQL", id);
+        log.info("Updated qualification data for user {} in PostgreSQL", id);
     }
 
     private String getPreviousJobTitlesString(Set<String> jobTitles) {
