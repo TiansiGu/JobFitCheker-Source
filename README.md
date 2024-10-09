@@ -7,6 +7,7 @@ Below are instructions for setting up, running, and deploying both the backend a
 Before you start, ensure you have the following installed on your system:
 - Java (version 17 or higher)
 - Maven (for building and running the backend)
+- AWS CLI (for connecting with AWS resources)
 - Node.js (for running the frontend)
 
 ## Environment Setup
@@ -19,6 +20,7 @@ Use an `.env` file in the project root with the following content:
 ```
 MY_DB_USERNAME=<your_db_username>
 MY_DB_PASSWORD=<your_db_password>
+OPEN_AI_API_KEY=<your_open_ai_api_key>
 ```
 To connect with the database, run the following command in another terminal:
 ```bash
@@ -91,6 +93,16 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 - Security groups in AWS (if applicable) allow access from your IP (this should be covered if it's in local).
 - The PostgreSQL service is running and accessible.
 - For issues with the frontend, check the browser console for errors and verify that the correct API endpoint for the backend is being used.
+
+### 7. Tutorial Reference
+- [Build REST services with Spring](https://spring.io/guides/tutorials/rest)
+- [Setup development environment for AWS SDK Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html#setup-credentials)
+- [Install latest AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- [Using AI Services in Spring Boot Application](https://docs.langchain4j.dev/tutorials/ai-services/#using-ai-services-in-spring-boot-application)
+- [Loading Amazon S3 Document in langchain4j](https://github.com/langchain4j/langchain4j/blob/main/document-loaders/langchain4j-document-loader-amazon-s3/src/test/java/dev/langchain4j/data/document/loader/amazon/s3/AmazonS3DocumentLoaderIT.java)
+- [Configure Amazon Simple Queue Service](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configuring.html)
+- [Amazon SQS long polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html#sqs-long-polling)
+- [Task executing in Spring](https://docs.spring.io/spring-framework/reference/integration/scheduling.html)
 
 ### 7. Quotations
 - Referred to this video for setting up the database

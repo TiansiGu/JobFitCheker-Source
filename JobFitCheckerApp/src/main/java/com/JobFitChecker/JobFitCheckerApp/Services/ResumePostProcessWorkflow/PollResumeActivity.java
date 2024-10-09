@@ -72,6 +72,13 @@ public final class PollResumeActivity {
         return resumeTexts;
     }
 
+    /**
+     * Use ApachePdfBox's integration with langchain4j to parse S3 pdf document to text. Reference:
+     * https://github.com/langchain4j/langchain4j/blob/main/document-parsers/langchain4j-document-parser-apache-pdfbox/src/main/java/dev/langchain4j/data/document/parser/apache/pdfbox/ApachePdfBoxDocumentParser.java
+     * @param bucketName S3 bucket name
+     * @param objectKey S3 file object key
+     * @return parsed text of S3 file (resume)
+     */
     private String processS3File(String bucketName, String objectKey) {
         log.info("Converting resume {} to text: ", objectKey);
 
