@@ -94,20 +94,13 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 - The PostgreSQL service is running and accessible.
 - For issues with the frontend, check the browser console for errors and verify that the correct API endpoint for the backend is being used.
 
-### 7. Tutorial Reference
+### 7. Tutorial Quotations
+- Referred to [this video](https://www.youtube.com/watch?v=buqBSiEEdQc) for setting up the database
+- Referred to [this video](https://www.youtube.com/watch?v=qis9sMaiqN4) for connecting front end with the back end
+- [Session management tutorial](https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html).
 - [Build REST services with Spring](https://spring.io/guides/tutorials/rest)
 - [Setup development environment for AWS SDK Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html#setup-credentials)
-- [Install latest AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 - [Using AI Services in Spring Boot Application](https://docs.langchain4j.dev/tutorials/ai-services/#using-ai-services-in-spring-boot-application)
 - [Loading Amazon S3 Document in langchain4j](https://github.com/langchain4j/langchain4j/blob/main/document-loaders/langchain4j-document-loader-amazon-s3/src/test/java/dev/langchain4j/data/document/loader/amazon/s3/AmazonS3DocumentLoaderIT.java)
 - [Configure Amazon Simple Queue Service](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configuring.html)
-- [Amazon SQS long polling](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html#sqs-long-polling)
 - [Task executing in Spring](https://docs.spring.io/spring-framework/reference/integration/scheduling.html)
-
-### 7. Quotations
-- Referred to this video for setting up the database
-> https://www.youtube.com/watch?v=buqBSiEEdQc
-- Referred to this video for connecting front end with the back end
-> https://www.youtube.com/watch?v=qis9sMaiqN4
-- For session management.
-> https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html

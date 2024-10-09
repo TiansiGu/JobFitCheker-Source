@@ -40,7 +40,6 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please only upload PDF resumes");
 
         try {
-            // long userId = 7L; //ToDo: fetch real userId from session
             Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
             resumeService.putResume(loggedInUserId, file);
             return ResponseEntity.status(HttpStatus.OK).body("Upload successful");
@@ -51,15 +50,17 @@ public class ResumeController {
     }
 
     @DeleteMapping("/delete-resume")
-    public ResponseEntity<String> handleDeleteResume() {
-        String resumeKey = "7@Resume_Tiansi Gu.pdf"; // ToDo: change to get resumeKey from session or calling getResumeKey
+    public ResponseEntity<String> handleDeleteResume(HttpServletRequest request) {
+        HttpSession session = request.getSession(false); // false to prevent creating a new session if none exists
+        if (session == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
+        Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
 
         try {
-            long userId = 7L; //ToDo: fetch real userId from session
-            resumeService.deleteResume(userId, resumeKey);
+            resumeService.deleteResume(loggedInUserId);
             return ResponseEntity.status(HttpStatus.OK).body("Delete successful");
         } catch (Exception ex) {
-            log.error("Failed to delete file {}: ", resumeKey + ex);
+            log.error("Failed to delete resume for user {}: ", loggedInUserId, ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Delete failed");
         }
     }

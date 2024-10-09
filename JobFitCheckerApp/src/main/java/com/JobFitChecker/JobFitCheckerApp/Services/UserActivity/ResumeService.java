@@ -1,7 +1,10 @@
 package com.JobFitChecker.JobFitCheckerApp.Services.UserActivity;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import com.JobFitChecker.JobFitCheckerApp.Model.User;
 import com.JobFitChecker.JobFitCheckerApp.Repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,14 +53,22 @@ public final class ResumeService {
         }
     }
 
-    public void deleteResume(long userId, String resumeKey) {
-        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                .bucket(S3_BUCKET_NAME)
-                .key(resumeKey)
-                .build();
-        s3Client.deleteObject(deleteObjectRequest);
+    public void deleteResume(long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
 
-        userRepository.updateResumeKey(userId, null);
+        if (optionalUser.isPresent()) {
+            String resumeKey = optionalUser.get().getResumeKey();
+
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                    .bucket(S3_BUCKET_NAME)
+                    .key(resumeKey)
+                    .build();
+            s3Client.deleteObject(deleteObjectRequest);
+
+            userRepository.updateResumeKey(userId, null);
+        } else {
+            throw new NoSuchElementException("The user with id " + userId + "does not exist");
+        }
     }
 
     private String getResumeKey(long userId, String fileName) {
