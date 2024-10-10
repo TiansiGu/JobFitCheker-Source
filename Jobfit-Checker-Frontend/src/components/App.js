@@ -1,6 +1,6 @@
 // App.js or wherever you define your main routing logic
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Login from './Login'; // Adjust the path as necessary
 import Register from './Register'; // Adjust the path as necessary
 import AppContent from './AppContents'; // Your main or home component
