@@ -1,7 +1,7 @@
-package com.JobFitChecker.JobFitCheckerApp.Services;
+package com.JobFitChecker.JobFitCheckerApp.services;
 
-import com.JobFitChecker.JobFitCheckerApp.Model.User;
-import com.JobFitChecker.JobFitCheckerApp.Repository.UserRepository;
+import com.JobFitChecker.JobFitCheckerApp.model.User;
+import com.JobFitChecker.JobFitCheckerApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;

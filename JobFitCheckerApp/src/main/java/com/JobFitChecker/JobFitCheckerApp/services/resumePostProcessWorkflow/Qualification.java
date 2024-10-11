@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.Services.ResumePostProcessWorkflow;
+package com.JobFitChecker.JobFitCheckerApp.services.resumePostProcessWorkflow;
 
 import java.util.Collections;
 import java.util.Set;
