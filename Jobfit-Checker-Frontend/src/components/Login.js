@@ -19,7 +19,7 @@ function Login({ setUser }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Correct: credentials is a property of the request config, not headers
+        credentials: 'include', // need this for session management to remain logged in
 
         body: JSON.stringify({ email, password }),
       });

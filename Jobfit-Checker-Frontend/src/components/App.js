@@ -1,13 +1,12 @@
-// App.js or wherever you define your main routing logic
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from './Login'; // Adjust the path as necessary
-import Register from './Register'; // Adjust the path as necessary
-import AppContent from './AppContents'; // Your main or home component
+import Login from './Login';
+import Register from './Register';
+import AppContent from './AppContents';
 import RegistrationSuccessful from './RegistrationSuccessful';
 
 const App = () => {
-  const [user, setUser] = useState(null); // Initialize user state
+  const [user, setUser] = useState(null);
 
   return (
     <Routes>
@@ -19,7 +18,6 @@ const App = () => {
         path="/registrationSuccessful"
         element={<RegistrationSuccessful />}
       />
-      {/* Add other routes as needed */}
     </Routes>
   );
 };

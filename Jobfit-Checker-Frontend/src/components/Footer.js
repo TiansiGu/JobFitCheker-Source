@@ -4,10 +4,10 @@ const Footer = () => {
   const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
-    // Set the current date when the component mounts
+    // Set the current date and show in the bottom of the page
     const today = new Date().toLocaleDateString();
     setCurrentDate(today);
-  }, []); // Empty dependency array to run only on mount
+  }, []);
 
   return (
     <footer id="footer">
