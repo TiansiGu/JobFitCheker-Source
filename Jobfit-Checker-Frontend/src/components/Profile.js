@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function Profile() {
-  // Create local state to handle form inputs and profile data
+  // Create states to handle inputs and data
   const [user, setUser] = useState({
     firstName: null,
     lastName: null,
@@ -35,7 +35,7 @@ export default function Profile() {
           phoneNumber: data.phoneNumber,
           degree: data.degree,
           needSponsor: data.needSponsor,
-          resumeName: data.resumeKey ? data.resumeKey.split("@")[1] : null
+          resumeName: data.resumeKey ? data.resumeKey.split("@")[1] : null // extract the resume name
         });
         setLoading(false);
       } catch (err) {
@@ -44,7 +44,7 @@ export default function Profile() {
       }
     };
     fetchProfile();
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []);
 
   // Handle form submission to update profile information
   const handleSubmit = async (e) => {
@@ -125,10 +125,6 @@ export default function Profile() {
   const handleFileChange = (e) => {
     setResume(e.target.files[0]); // Save the selected file
   };
-
-  // Render loading or error state
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="profile-container">

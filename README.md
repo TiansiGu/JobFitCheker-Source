@@ -81,9 +81,9 @@ Once both the backend and frontend are set up, you can run the full stack applic
 
 - **Run the backend:** Ensure the backend is running at `http://localhost:8080`.
 - **Run the frontend (development mode):** Run the frontend in development mode at `http://localhost:3000` using:
-  ```bash
-  npm start
-  ```
+```bash
+npm start
+```
   OR
 - **Build the frontend and serve it via the backend (production mode):** Build and copy the frontend as outlined above, and the frontend will be available at `http://localhost:8080`.
 
@@ -109,6 +109,10 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 - [Using React Router to navigate to pages](https://reactrouter.com/en/main)
 - [Basic about React](https://qiita.com/watataku8911/items/d632e2274c6921f1e109)
 - [React official site](https://react.dev/learn)
+- [React useEffect Hooks](https://www.w3schools.com/react/react_useeffect.asp)
+- [Web Development course](https://www.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/40494176?start=0#content)
 - [Spring Security](https://spring.io/projects/spring-security)
+- [Example of using JPA](https://dev.classmethod.jp/articles/use_spring-boot-jpa-jpql/)
+- [Spring examples](https://github.com/spring-projects)
 - [Spring Boot Template](https://usfca.instructure.com/courses/1621500/assignments/7473801)
 - Refereed to class materials for CS386 in USF for Front end part when using CSS, Javascript, react etc.

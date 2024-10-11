@@ -1,4 +1,3 @@
-// AppContent.js
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
@@ -16,7 +15,7 @@ export default class AppContent extends React.Component {
       <div id="divMain">
         <Header user={user} setUser={setUser} />
 
-        {/* Navigation links */}
+        {/*links */}
         <div
           id="nav"
           style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
@@ -24,10 +23,9 @@ export default class AppContent extends React.Component {
            <Link to="/home">Home</Link>
           {/*<Link to="/home">Home</Link>*/}
           <Link to="/profile">My Profile</Link>
-          <Link to="/track-application">Track Your Application</Link>
+          <Link to="/track-application">Track Your Application</Link> {/*Need to create this component*/}
         </div>
 
-        {/* Main content area for routes */}
         <article id="contents" style={{ flex: 1 }}>
           <Routes>
             {/* Home Route */}
@@ -39,8 +37,6 @@ export default class AppContent extends React.Component {
               path="/profile"
               element={user ? <Profile user={user} /> : <LoginPrompt />}
             />
-
-            {/* Other routes can be added here */}
           </Routes>
         </article>
 

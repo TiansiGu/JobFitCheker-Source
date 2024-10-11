@@ -22,6 +22,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityModule {
     @Bean
     public PasswordEncoder passwordEncoder() {
+        // use to hash password and verify
         return new BCryptPasswordEncoder();
     }
     @Bean

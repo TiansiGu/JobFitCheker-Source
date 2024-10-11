@@ -11,17 +11,14 @@ const Nav = ({ user, setUser }) => {
       .get('http://localhost:8080/currentUser', { withCredentials: true })
       .then((response) => {
         setUser({ username: response.data });
-        console.log('User object:', user); // Directly log the user object
-
-        // Print all properties of the user using JSON.stringify
-        console.log('All user properties:', JSON.stringify(user, null, 2)); // Pretty-print the object
-
+        console.log('User object:', user); // for checking purpose
+        console.log('All user properties:', JSON.stringify(user, null, 2)); // for checking purpose. below parts too
         console.log('respoonse: ' + response.data);
         console.log('user: ' + user.username);
         console.log('userEmail: ' + user.email);
       })
       .catch((error) => {
-        console.error('Error fetching user infor', error);
+        console.error('Error fetching user info', error);
         setUser(null);
       });
   }, [setUser]);
@@ -34,8 +31,7 @@ const Nav = ({ user, setUser }) => {
   }, [user]);
 
   const handleLogout = () => {
-    // Perform logout operations, e.g., clearing local storage, invalidating session, etc.
-    setUser(null); // Update state to reflect logged-out status, assuming 'setUser' is passed as a prop
+    setUser(null); // Update state to reflect logged-out status
 
     // Redirect user to the login page
     navigate('/login');

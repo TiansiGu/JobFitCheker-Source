@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for programmatic navigation
+import { useNavigate } from 'react-router-dom';
 import '../styles/register.css';
 
 function Register() {
@@ -10,7 +10,7 @@ function Register() {
     repeatPassword: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +42,7 @@ function Register() {
       });
 
       if (response.ok) {
-        navigate('/registrationSuccessful'); // Change to your successful registration route
+        navigate('/registrationSuccessful'); // go to successful registration page
       } else {
         const data = await response.json();
         setErrorMessage(data.message || 'Registration failed');

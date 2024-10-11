@@ -14,9 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-// @RequestMapping("/auth") // Base path for all methods in this controller
-@CrossOrigin // Allow all origins, you might want to restrict this in a production
-             // environment
+@CrossOrigin // Allow all origins, might want to restrict this if it is a production environment
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -30,7 +28,7 @@ public class UserController {
     }
 
     // Register a new user
-    @PostMapping("/register") // Correct path, as the base path is already /auth
+    @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
             // Check if user exists
@@ -75,7 +73,6 @@ public class UserController {
         }
     }
 
-    // Logout a user (optional)
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser(HttpSession session) {
         // Invalidate session to log the user out
@@ -88,7 +85,7 @@ public class UserController {
     public ResponseEntity<?> getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false); // false to prevent creating a new session if none exists
         System.out.println("line 91 : " + session);
-        // Get the logged in user fron session
+        // Get the logged in user from session
         if (session != null) {
             String loggedInUserName = ((User) session.getAttribute("loggedInUser")).getUsername();
             Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
@@ -98,7 +95,7 @@ public class UserController {
 
             // Check if user is logged in (exists in session)
             if (loggedInUserName != null) {
-                return ResponseEntity.ok(loggedInUserName); // return the user object (or just username if needed)
+                return ResponseEntity.ok(loggedInUserName); // return the username
             }
         }
 
