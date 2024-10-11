@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.Services.ResumePostProcessWorkflow;
+package com.JobFitChecker.JobFitCheckerApp.services.resumePostProcessWorkflow;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;

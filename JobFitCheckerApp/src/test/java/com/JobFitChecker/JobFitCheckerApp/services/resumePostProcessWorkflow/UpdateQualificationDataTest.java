@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.Services.ResumePostProcessWorkflow;
+package com.JobFitChecker.JobFitCheckerApp.services.resumePostProcessWorkflow;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

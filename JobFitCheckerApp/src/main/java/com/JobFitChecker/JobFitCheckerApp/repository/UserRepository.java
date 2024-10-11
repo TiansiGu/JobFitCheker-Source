@@ -1,6 +1,6 @@
-package com.JobFitChecker.JobFitCheckerApp.Repository;
+package com.JobFitChecker.JobFitCheckerApp.repository;
 
-import com.JobFitChecker.JobFitCheckerApp.Model.User;
+import com.JobFitChecker.JobFitCheckerApp.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

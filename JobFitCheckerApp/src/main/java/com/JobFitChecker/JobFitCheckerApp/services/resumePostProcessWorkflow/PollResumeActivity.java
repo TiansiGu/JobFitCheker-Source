@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.Services.ResumePostProcessWorkflow;
+package com.JobFitChecker.JobFitCheckerApp.services.resumePostProcessWorkflow;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

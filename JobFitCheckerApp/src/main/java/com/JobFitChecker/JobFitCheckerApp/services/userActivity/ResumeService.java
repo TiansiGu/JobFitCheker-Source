@@ -1,11 +1,11 @@
-package com.JobFitChecker.JobFitCheckerApp.Services.UserActivity;
+package com.JobFitChecker.JobFitCheckerApp.services.userActivity;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import com.JobFitChecker.JobFitCheckerApp.Model.User;
-import com.JobFitChecker.JobFitCheckerApp.Repository.UserRepository;
+import com.JobFitChecker.JobFitCheckerApp.model.User;
+import com.JobFitChecker.JobFitCheckerApp.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
