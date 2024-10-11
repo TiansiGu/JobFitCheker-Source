@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.Controller;
+package com.JobFitChecker.JobFitCheckerApp.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
-package com.JobFitChecker.JobFitCheckerApp.Services.ResumePostProcessWorkflow;
+package com.JobFitChecker.JobFitCheckerApp.services.resumePostProcessWorkflow;
 
-import com.JobFitChecker.JobFitCheckerApp.Repository.UserRepository;
+import com.JobFitChecker.JobFitCheckerApp.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

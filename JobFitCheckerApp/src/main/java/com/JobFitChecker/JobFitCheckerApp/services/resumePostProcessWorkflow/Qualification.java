@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.Services.ResumePostProcessWorkflow;
+package com.JobFitChecker.JobFitCheckerApp.services.resumePostProcessWorkflow;
 
 import java.util.Collections;
 import java.util.Set;
@@ -20,6 +20,7 @@ public class Qualification {
         this.skills = skills;
     }
 
+    // ToDo: Used for debugging, delete it before production
     @Override
     public String toString() {
         return "Qualification{" + System.lineSeparator() +
