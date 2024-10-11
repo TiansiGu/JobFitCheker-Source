@@ -104,3 +104,4 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 - [Loading Amazon S3 Document in langchain4j](https://github.com/langchain4j/langchain4j/blob/main/document-loaders/langchain4j-document-loader-amazon-s3/src/test/java/dev/langchain4j/data/document/loader/amazon/s3/AmazonS3DocumentLoaderIT.java)
 - [Configure Amazon Simple Queue Service](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configuring.html)
 - [Task executing in Spring](https://docs.spring.io/spring-framework/reference/integration/scheduling.html)
+- Refereed to class materials for CS386 in USF for Front end part when using CSS, Javascript, react etc.

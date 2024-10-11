@@ -21,8 +21,8 @@ export default class AppContent extends React.Component {
           id="nav"
           style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
         >
-          {/* <Link to="/">Home</Link> */}
-          <Link to="/home">Home</Link>
+           <Link to="/home">Home</Link>
+          {/*<Link to="/home">Home</Link>*/}
           <Link to="/profile">My Profile</Link>
           <Link to="/track-application">Track Your Application</Link>
         </div>
@@ -32,6 +32,7 @@ export default class AppContent extends React.Component {
           <Routes>
             {/* Home Route */}
             <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
 
             {/* Profile Route - Conditional rendering based on user login */}
             <Route
