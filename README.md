@@ -96,6 +96,8 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 
 ### 7. Tutorial Quotations
 - Referred to [this video](https://www.youtube.com/watch?v=buqBSiEEdQc) for setting up the database
+- [Configuring an Amazon RDS DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_RDS_Configuring.html)
+- [Java, Spring Boot, PostgreSQL, Spring Data JPA, Hibernate CRUD RESTFul API Tutorial](https://www.youtube.com/watch?app=desktop&v=v1IFQWzuSrw)
 - Referred to [this video](https://www.youtube.com/watch?v=qis9sMaiqN4) for connecting front end with the back end
 - [Session management tutorial](https://docs.spring.io/spring-security/reference/servlet/authentication/session-management.html).
 - [Build REST services with Spring](https://spring.io/guides/tutorials/rest)
@@ -104,4 +106,9 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 - [Loading Amazon S3 Document in langchain4j](https://github.com/langchain4j/langchain4j/blob/main/document-loaders/langchain4j-document-loader-amazon-s3/src/test/java/dev/langchain4j/data/document/loader/amazon/s3/AmazonS3DocumentLoaderIT.java)
 - [Configure Amazon Simple Queue Service](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configuring.html)
 - [Task executing in Spring](https://docs.spring.io/spring-framework/reference/integration/scheduling.html)
+- [Using React Router to navigate to pages](https://reactrouter.com/en/main)
+- [Basic about React](https://qiita.com/watataku8911/items/d632e2274c6921f1e109)
+- [React official site](https://react.dev/learn)
+- [Spring Security](https://spring.io/projects/spring-security)
+- [Spring Boot Template](https://usfca.instructure.com/courses/1621500/assignments/7473801)
 - Refereed to class materials for CS386 in USF for Front end part when using CSS, Javascript, react etc.
