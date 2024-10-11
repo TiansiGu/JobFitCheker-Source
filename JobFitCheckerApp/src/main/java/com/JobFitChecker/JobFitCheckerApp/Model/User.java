@@ -48,7 +48,7 @@ public class User {
     @Column(name = "Skills", columnDefinition = "TEXT")
     private String skills;
 
-    // Constructor without userId (since it's auto-generated)
+    // Constructor without userId (since it's auto-generated) // might not use this anymore
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
