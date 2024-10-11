@@ -20,6 +20,7 @@ public class Qualification {
         this.skills = skills;
     }
 
+    // ToDo: Used for debugging, delete it before production
     @Override
     public String toString() {
         return "Qualification{" + System.lineSeparator() +

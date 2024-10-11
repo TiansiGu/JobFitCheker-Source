@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+/**
+ * ThreadPoolTaskScheduler provides a graceful shutdown through Spring’s lifecycle management.
+ * https://docs.spring.io/spring-framework/reference/integration/scheduling.html
+ */
 @Configuration
 public class TaskExecutorModule {
     @Bean

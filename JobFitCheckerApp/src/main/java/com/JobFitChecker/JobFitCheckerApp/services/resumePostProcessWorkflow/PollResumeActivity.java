@@ -44,7 +44,7 @@ public final class PollResumeActivity {
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(SQS_QUEUE_URL)
                 .maxNumberOfMessages(10)
-                .waitTimeSeconds(20)
+                .waitTimeSeconds(20) // long polling, wait 20 seconds
                 .build();
 
         ReceiveMessageResponse response = sqsClient.receiveMessage(receiveMessageRequest);

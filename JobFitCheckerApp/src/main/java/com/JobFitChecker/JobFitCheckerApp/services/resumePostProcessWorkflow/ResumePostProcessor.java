@@ -27,10 +27,11 @@ public final class ResumePostProcessor {
     }
 
     /**
-     * Start the task as soon as the Spring context is initialized.
-     * The processing workflow continuously runs throughout the application's lifecycle
-     * in a background thread to poll, extract, and store resume metadata,
-     * and would not block other requests.
+     * Start the task as soon as the initialization of bean properties.
+     * https://www.baeldung.com/spring-postconstruct-predestroy
+     * Start a background thread, the processing workflow continuously runs throughout
+     * the application's lifecycle in a background thread to poll, extract, and store
+     * resume metadata, and would not block other requests.
      */
     @PostConstruct
     public void startProcessing() {
@@ -40,7 +41,7 @@ public final class ResumePostProcessor {
 
     /**
      * The thread would shut down gracefully when stopping the application.
-     * ThreadPoolTaskExecutor protects data consistency.
+     * Runs only once before Spring removes our bean from the application context.
      */
     @PreDestroy
     public void stopProcessing() {
