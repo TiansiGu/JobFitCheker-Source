@@ -8,14 +8,18 @@ import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import static com.JobFitChecker.JobFitCheckerApp.utils.Constant.OPENAI_API_KEY;
+//import static com.JobFitChecker.JobFitCheckerApp.utils.Constant.OPENAI_API_KEY;
 
 
 @Component
 public final class ExtractQualificationActivity {
     private static final Logger log = LoggerFactory.getLogger(ExtractQualificationActivity.class);
+
+    @Value("${open.ai.api.key}")
+    private String apiKey;
 
     interface Extractor {
         @UserMessage("""
@@ -31,14 +35,14 @@ public final class ExtractQualificationActivity {
     }
 
     public Qualification extractDataFromResumeText(long userId, String resumeText) {
+        System.out.println(apiKey);
         ChatLanguageModel model = OpenAiChatModel.builder()
-                .apiKey(OPENAI_API_KEY)
+                .apiKey(apiKey)
                 .modelName(OpenAiChatModelName.GPT_4_O_MINI)
                 .logRequests(true)
                 .logResponses(true)
                 .build();
 
-        // long id = 7L; // ToDo: Change to dynamic data
         Extractor extractor = AiServices.create(Extractor.class, model);
         Qualification qualification = extractor.extract(resumeText, userId);
         log.info("Extracted resume metadata for user with user id ${} ", userId);
