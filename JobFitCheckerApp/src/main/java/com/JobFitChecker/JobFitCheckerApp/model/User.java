@@ -132,6 +132,22 @@ public class User {
         return resumeKey;
     }
 
+    public String getMajor() {
+        return major;
+    }
+
+    public String getGraduationDate() {
+        return graduationDate;
+    }
+
+    public String getPreviousJobTitles() {
+        return previousJobTitles;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
     @Override
     // Added for debugging, might want to delete in the end
     public String toString() {

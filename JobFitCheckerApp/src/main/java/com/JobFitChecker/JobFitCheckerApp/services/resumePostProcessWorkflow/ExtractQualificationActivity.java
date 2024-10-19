@@ -11,9 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-//import static com.JobFitChecker.JobFitCheckerApp.utils.Constant.OPENAI_API_KEY;
-
-
 @Component
 public final class ExtractQualificationActivity {
     private static final Logger log = LoggerFactory.getLogger(ExtractQualificationActivity.class);
@@ -35,7 +32,6 @@ public final class ExtractQualificationActivity {
     }
 
     public Qualification extractDataFromResumeText(long userId, String resumeText) {
-        System.out.println(apiKey);
         ChatLanguageModel model = OpenAiChatModel.builder()
                 .apiKey(apiKey)
                 .modelName(OpenAiChatModelName.GPT_4_O_MINI)
