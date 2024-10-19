@@ -51,4 +51,16 @@ public class ApplicationRecord {
     public User getUser() {
         return user;
     }
+
+    @Override
+    public String toString() {
+        return "ApplicationRecord{" +
+                "id=" + id +
+                ", company='" + company + '\'' +
+                ", position='" + position + '\'' +
+                ", jobId='" + jobId + '\'' +
+                ", createTime=" + createTime +
+                ", user=" + user.getUserId() +
+                '}';
+    }
 }

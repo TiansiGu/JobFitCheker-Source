@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
+
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
@@ -26,5 +28,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
             @Param("graduationDate") String graduationDate,
             @Param("previousJobTitles") String previousJobTitles,
             @Param("skills") String skills
+    );
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO application_records (company, position, job_id, create_time, user_id)" +
+            "VALUES (:company, :position, :jobId, :createTime, :userId)", nativeQuery = true)
+    void addApplicationRecordToUser(
+            @Param("company") String company,
+            @Param("position") String position,
+            @Param("jobId") String jobId,
+            @Param("createTime") LocalDateTime createTime,
+            @Param("userId") long userId
     );
 }
