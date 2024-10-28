@@ -1,6 +1,7 @@
 package com.JobFitChecker.JobFitCheckerApp.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -48,6 +49,10 @@ public class User {
     @Column(name = "Skills", columnDefinition = "TEXT")
     private String skills;
 
+    @OneToMany(mappedBy = "user")
+    private List<ApplicationRecord> applicationRecords;
+
+
     // Constructor without userId (since it's auto-generated) // might not use this anymore
     public User(String username, String email, String password) {
         this.username = username;
@@ -56,7 +61,7 @@ public class User {
     }
 
     // Default constructor (required by JPA)
-    public User() {
+    protected User() {
 
     }
 
@@ -130,6 +135,22 @@ public class User {
 
     public String getResumeKey() {
         return resumeKey;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public String getGraduationDate() {
+        return graduationDate;
+    }
+
+    public String getPreviousJobTitles() {
+        return previousJobTitles;
+    }
+
+    public String getSkills() {
+        return skills;
     }
 
     @Override
