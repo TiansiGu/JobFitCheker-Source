@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.services.userActivity;
+package com.JobFitChecker.JobFitCheckerApp.model.data;
 
 public final class AIFeedBack {
     private final boolean shouldApply;

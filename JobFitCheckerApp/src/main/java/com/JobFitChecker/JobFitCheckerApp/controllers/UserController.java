@@ -1,6 +1,6 @@
 package com.JobFitChecker.JobFitCheckerApp.controllers;
 
-import com.JobFitChecker.JobFitCheckerApp.model.User;
+import com.JobFitChecker.JobFitCheckerApp.model.entities.User;
 import com.JobFitChecker.JobFitCheckerApp.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.model;
+package com.JobFitChecker.JobFitCheckerApp.model.entities;
 
 import jakarta.persistence.*;
 import java.util.List;
