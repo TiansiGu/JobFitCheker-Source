@@ -49,8 +49,16 @@ public class ApplicationHistoryController {
 //        }
         long loggedInUserId = 7L; // ToDO: delete the hardcoded userId and uncomment above after connecting to FE
         try {
+            ApplicationRecordDTO existingRecord = applicationHistoryService.retrieveApplicationRecords(
+                    loggedInUserId, record.getCompany(), record.getPosition(), record.getJobId()
+            );
+            if (existingRecord != null)
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body("You already added this application record. Please not add duplicate records!");
+
             applicationHistoryService.addRecordToUser(loggedInUserId, record);
             return ResponseEntity.ok("Successfully added application record.");
+
         } catch (Exception ex) {
             log.error("Failed to add application record {} for user {}", record, loggedInUserId, ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Add application record failed");
