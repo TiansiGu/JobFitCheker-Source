@@ -11,6 +11,7 @@ export default function Profile() {
     needSponsor: null,
     resumeName: null,
   });
+  const [originalUserInfo, setOriginalUserInfo] = useState(null); // State to hold the original user data
   const [resume, setResume] = useState(null); // State to hold the file
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,6 +38,10 @@ export default function Profile() {
           needSponsor: data.needSponsor,
           resumeName: data.resumeKey ? data.resumeKey.split("@")[1] : null // extract the resume name
         });
+        // remember the original info
+        setOriginalUserInfo({
+          email: data.email, //Store the original user data for comparison later
+        });
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -46,6 +51,28 @@ export default function Profile() {
     fetchProfile();
   }, []);
 
+  const checkEmail = async(email) => {
+    try {
+      const response = await fetch(`http://localhost:8080/check-email?email=${encodeURIComponent(email)}`, {
+
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to check email');
+      }
+      let emailExists = await response.json();
+      console.log(emailExists);
+      return emailExists; // Return true or false based on the server response
+
+    } catch (e) {
+      alert("Error checking email: " + e.message);
+    }
+  }
+
   // Handle form submission to update profile information
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,6 +80,14 @@ export default function Profile() {
     const action = e.nativeEvent.submitter.value;
 
     if (action === "Update Profile") {
+      // check if the email is already used or not
+      if (user.email !== originalUserInfo.email) {
+        let isEmailUsed = await checkEmail(user.email);
+        if (isEmailUsed) {
+          alert("This Email is already used, please use a different Email");
+          return;
+        }
+      }
       try {
         const response = await fetch("http://localhost:8080/update-profile", {
           method: "PUT",
@@ -68,6 +103,8 @@ export default function Profile() {
         if (response.ok)
           console.log("set user fields are" + JSON.stringify(user));
         alert("Profile updated successfully");
+        //update the original email
+        setOriginalUserInfo({ email: user.email });
       } catch (err) {
         alert("Error updating profile: " + err.message);
       }
