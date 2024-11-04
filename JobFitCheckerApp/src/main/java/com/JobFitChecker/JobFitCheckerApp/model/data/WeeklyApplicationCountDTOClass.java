@@ -1,12 +1,12 @@
-package com.JobFitChecker.JobFitCheckerApp.repository;
+package com.JobFitChecker.JobFitCheckerApp.model.data;
 
 import java.time.LocalDateTime;
 
-public class WeeklyApplicationCountDTO implements WeeklyApplicationCount {
+public final class WeeklyApplicationCountDTOClass implements WeeklyApplicationCountDTO {
     private LocalDateTime weekStart;
     private long applicationCount;
 
-    public WeeklyApplicationCountDTO(LocalDateTime weekStart, long applicationCount) {
+    public WeeklyApplicationCountDTOClass(LocalDateTime weekStart, long applicationCount) {
         this.weekStart = weekStart;
         this.applicationCount = applicationCount;
     }

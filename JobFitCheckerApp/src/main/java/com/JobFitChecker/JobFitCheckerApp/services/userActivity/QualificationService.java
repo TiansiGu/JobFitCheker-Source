@@ -1,6 +1,7 @@
 package com.JobFitChecker.JobFitCheckerApp.services.userActivity;
 
-import com.JobFitChecker.JobFitCheckerApp.model.User;
+import com.JobFitChecker.JobFitCheckerApp.model.data.AIFeedBack;
+import com.JobFitChecker.JobFitCheckerApp.model.entities.User;
 import com.JobFitChecker.JobFitCheckerApp.repository.UserRepository;
 import com.google.gson.Gson;
 import dev.langchain4j.model.chat.ChatLanguageModel;

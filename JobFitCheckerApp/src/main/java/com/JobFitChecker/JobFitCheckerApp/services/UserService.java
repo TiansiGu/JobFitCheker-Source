@@ -1,6 +1,6 @@
 package com.JobFitChecker.JobFitCheckerApp.services;
 
-import com.JobFitChecker.JobFitCheckerApp.model.User;
+import com.JobFitChecker.JobFitCheckerApp.model.entities.User;
 import com.JobFitChecker.JobFitCheckerApp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
-package com.JobFitChecker.JobFitCheckerApp.repository;
+package com.JobFitChecker.JobFitCheckerApp.model.data;
 
 import java.time.LocalDateTime;
 
-public interface WeeklyApplicationCount {
+public interface WeeklyApplicationCountDTO {
     LocalDateTime getWeekStart();
     long getApplicationCount();
 }
