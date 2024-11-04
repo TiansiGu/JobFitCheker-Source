@@ -5,6 +5,7 @@ import Profile from './Profile';
 import LoginPrompt from './LoginPrompt';
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './Home'; // Import the Home component
+import ApplicationHistory from './ApplicationHistory';
 import '../styles/style.css';
 
 export default class AppContent extends React.Component {
@@ -23,7 +24,7 @@ export default class AppContent extends React.Component {
            <Link to="/home">Home</Link>
           {/*<Link to="/home">Home</Link>*/}
           <Link to="/profile">My Profile</Link>
-          <Link to="/track-application">Track Your Application</Link> {/*Need to create this component*/}
+          <Link to="/applicationHistory">Track Your Application</Link> {/*Need to create this component*/}
         </div>
 
         <article id="contents" style={{ flex: 1 }}>
@@ -36,6 +37,10 @@ export default class AppContent extends React.Component {
             <Route
               path="/profile"
               element={user ? <Profile user={user} /> : <LoginPrompt />}
+            />
+            <Route
+              path="/applicationHistory"
+              element={user ? <ApplicationHistory user={user} /> :<LoginPrompt />}
             />
           </Routes>
         </article>
