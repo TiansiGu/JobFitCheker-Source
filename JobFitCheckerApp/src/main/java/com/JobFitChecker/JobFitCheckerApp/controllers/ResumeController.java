@@ -1,6 +1,6 @@
 package com.JobFitChecker.JobFitCheckerApp.controllers;
 
-import com.JobFitChecker.JobFitCheckerApp.model.User;
+import com.JobFitChecker.JobFitCheckerApp.model.entities.User;
 import com.JobFitChecker.JobFitCheckerApp.services.userActivity.ResumeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

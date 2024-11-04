@@ -1,10 +1,8 @@
 package com.JobFitChecker.JobFitCheckerApp.controllers;
 
-import com.JobFitChecker.JobFitCheckerApp.model.User;
-import com.JobFitChecker.JobFitCheckerApp.services.userActivity.AIFeedBack;
+import com.JobFitChecker.JobFitCheckerApp.model.data.AIFeedBack;
 import com.JobFitChecker.JobFitCheckerApp.services.userActivity.QualificationService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

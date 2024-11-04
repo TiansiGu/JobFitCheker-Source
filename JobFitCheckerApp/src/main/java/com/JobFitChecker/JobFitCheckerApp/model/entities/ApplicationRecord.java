@@ -1,4 +1,4 @@
-package com.JobFitChecker.JobFitCheckerApp.model;
+package com.JobFitChecker.JobFitCheckerApp.model.entities;
 
 import jakarta.persistence.*;
 
@@ -24,7 +24,7 @@ public class ApplicationRecord {
     private LocalDateTime createTime;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable=false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
     // Default constructor, for JPA
