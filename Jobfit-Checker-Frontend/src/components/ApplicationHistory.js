@@ -9,6 +9,7 @@ import {
     Tooltip,
     Legend, CategoryScale,
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
     CategoryScale,
@@ -17,7 +18,8 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    ChartDataLabels
 );
 
 
@@ -75,17 +77,57 @@ export default function ApplicationHistory () {
     // Fetch data
     useEffect(() => {
         fetchAllApplicationData();
-    }, [])
+    }, []);
+
+    // add options to adjust y-axis
+    const options = {
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Weeks',
+                    font: {
+                        size: 14,
+                    },
+                },
+            },
+            y : {
+                beginAtZero: true,
+                suggestedMax: 30,
+                title: {
+                    display: true,
+                    text: 'Number of Applications',
+                    font: {
+                        size: 14,
+                    },
+                },
+                ticks : {
+                    stepSize: 10,
+
+                }
+            }
+        },
+        plugins: {
+
+            datalabels: {
+                display: true,
+                color: "red",
+                anchor: "end",
+                align: "top",
+                offset: 2,
+                formatter: (value) => value, // Display the value of each point
+            },
+        },
+    };
 
     return (
         <div>
             <h1>Application History</h1>
-            <Line data={graphData} />
+            <p>Each data point represents the number of applications for a week starting on Monday.</p>
+            <Line data={graphData} options={options}/>
 
         </div>
     );
-
-
 
 
 }
