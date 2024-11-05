@@ -151,4 +151,19 @@ public class UserController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
     }
+
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
+        System.out.println("The email to check: " + email);
+        try {
+            if (!(email.isEmpty())) {
+                boolean emailExists = userService.findByEmail(email) != null;
+                return ResponseEntity.ok(emailExists);
+            }
+            return ResponseEntity.badRequest().body(false);
+        } catch  (Exception ex)  {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
+    }
+
 }
