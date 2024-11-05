@@ -15,7 +15,7 @@ body {
     grid-template-rows: 100px 1fr auto; /* Adjust the height of header and footer */
     grid-template-columns: 20% 1fr 20%; /* More balanced space allocation */
     gap: 10px; /* Consistent gap for simplicity */
-    margin: 0px;
+    margin: 0;
 }
 
 header, article, nav, footer {
@@ -31,6 +31,17 @@ header {
     align-items: center;
 }
 
+nav#sideNavigation .nav-link{
+    grid-area: nav; /* Assign to grid-area nav */
+    flex-direction: column;
+    gap: 10px;
+    padding: 1em;
+    background-color: #e1e1e1; /* Set background color for navigation */
+    border-radius: 5px;
+    display: block;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
 nav#topNavigation {
     display: flex;
     gap: 15px;
@@ -44,7 +55,7 @@ nav#topNavigation .nav-item {
     cursor: pointer;
 }
 
-nav#topNavigation .nav-item:hover {
+nav#topNavigation .nav-link:hover {
     text-decoration: underline;
 }
 
@@ -80,8 +91,13 @@ nav#sideNavigation .nav-link:hover {
 
 #contents {
     grid-area: content;
-    overflow-y: auto; /* Enables scrolling for content area */
+    padding: 1.2em; /* Consistent padding for content area */
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 8px; /* Adds consistency in appearance */
 }
+
+
 
 footer {
     grid-area: footer;
