@@ -30,32 +30,13 @@ public class ApplicationHistoryController {
     @PostMapping("/application")
     public ResponseEntity<String> handleAddApplicationRecord(@RequestBody ApplicationRecord record, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-
-//        if (session != null) {
-//            User loggedInUser = (User) session.getAttribute("loggedInUser");
-//            if (loggedInUser != null) {
-//                Long loggedInUserId = loggedInUser.getUserId();
-//
-//                if (loggedInUserId != null) {
-//                    try {
-//                        loggedInUserId = 7L; // ToDO: delete the hardcoded userId after connecting to FE
-//                        applicationHistoryService.addRecordToUser(loggedInUserId, record);
-//                        return ResponseEntity.status(HttpStatus.OK).body("Successfully added application record.");
-//                    } catch (Exception ex) {
-//                        log.error("Failed to add application record {} for user {}", record, loggedInUser);
-//                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Add application record failed");
-//                    }
-//                }
-//            }
-//        }
-
         if (session == null) {
             log.error("No session found for request");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
             }
+
         Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
-//        record.setCreateTime(LocalDateTime.now());
-//        long loggedInUserId = 7L; // ToDO: delete the hardcoded userId and uncomment above after connecting to FE
+
         try {
             ApplicationRecordDTO existingRecord = applicationHistoryService.retrieveApplicationRecords(
                     loggedInUserId, record.getCompany(), record.getPosition(), record.getJobId()
@@ -71,15 +52,11 @@ public class ApplicationHistoryController {
             log.error("Failed to add application record {} for user {}", record, loggedInUserId, ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Add application record failed");
         }
-        // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
-        // ToDo: uncomment when changing to dynamic logged in user
     }
 
     @GetMapping("application-counts")
     public ResponseEntity<?> handleRetrieveApplicationCountsForUserWithinTwoMonths(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-
-//        long loggedInUserId = 7L; // ToDO: Change to dynamic userId
         if (session == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
         Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
@@ -100,8 +77,6 @@ public class ApplicationHistoryController {
             HttpServletRequest request
     ) {
         HttpSession session = request.getSession(false);
-
-//        long loggedInUserId = 7L; // ToDO: Change to dynamic userId
         if (session == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
         Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();

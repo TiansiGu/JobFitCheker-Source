@@ -37,13 +37,10 @@ public class QualificationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing 'jobDescription' field");
         }
 
-
-        System.out.println("Line 32: " + jobDescription);
         if (session == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
-//
+
         Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
-//        Long loggedInUserId = 11L; //ToDo: change to dynamic user using above code after frontend is added
 
         try {
             AIFeedBack feedBack = qualificationService.askAICheckQualifications(loggedInUserId, jobDescription);
