@@ -203,7 +203,9 @@ export default function ApplicationHistory() {
       <div className="application-container">
         <h1>Check if you applied before for a position</h1>
         <div className="add-application-container">
-          <h3>Add an application to your history</h3>
+          <h3>
+            Add an application to your history or track application history
+          </h3>
           <form onSubmit={handleSubmit} method="POST">
             <label htmlFor="company">Company:</label>
             <input
