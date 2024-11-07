@@ -35,9 +35,11 @@ public final class QualificationService {
       give feedback of whether this user is qualified for the given {{jobDescription}}.
       If the degree, major, graduation date, sponsorship, or workExperience clearly does not meet the basic requirement, 
       stop checking the rest fields as you already know the user should not apply for this job.
-      Otherwise, check if the skills match the job description, and give a response.
+      Otherwise, check if the skills match the job description, and give a response. shouldApply is true if you think
+      the user is qualified for this job, otherwise shouldApply is false.
       Explain your feedback in field reason in second-person narration.
-      If you feel there is not enough information, please include "Please fill in profile information and upload a resume."
+      If you feel there is not enough information to get a response, please include "The information you provided is 
+      not enough. Please update profile or resume." as the last paragraph.
       """)
         AIFeedBack check(@V("jobDescription") String jobDescription, @V("qualificationData") String qualificationData);
     }

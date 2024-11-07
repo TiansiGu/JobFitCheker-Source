@@ -113,8 +113,11 @@ If the backend cannot connect to the PostgreSQL database, verify that:
 - [Web Development course](https://www.udemy.com/course/the-complete-web-development-bootcamp/learn/lecture/40494176?start=0#content)
 - [Spring Security](https://spring.io/projects/spring-security)
 - [Example of using JPA](https://dev.classmethod.jp/articles/use_spring-boot-jpa-jpql/)
+- [PostgreSQL Syntax](https://www.w3schools.com/postgresql/postgresql_count.php)
+- [PostgreSQL Indexes](https://www.tutorialspoint.com/postgresql/postgresql_indexes.htm)
 - [Spring examples](https://github.com/spring-projects)
 - [Spring Boot Template](https://usfca.instructure.com/courses/1621500/assignments/7473801)
+- [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 - Referred to [this video](https://www.youtube.com/watch?v=ZpfseYy5Hxg) for using the Chart JS
 - [react-chartjs-2](https://www.npmjs.com/package/react-chartjs-2)
 - Refereed to class materials for CS386 in USF for Front end part when using CSS, Javascript, react etc.

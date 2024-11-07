@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/register.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/register.css";
 
 function Register() {
   const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    repeatPassword: '',
+    username: "",
+    email: "",
+    password: "",
+    repeatPassword: "",
   });
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,16 +23,16 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.repeatPassword) {
-      setErrorMessage('Passwords do not match');
+      setErrorMessage("Passwords do not match");
       return;
     }
-    setErrorMessage('');
+    setErrorMessage("");
 
     try {
-      const response = await fetch('http://localhost:8080/register', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/register", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: formData.username,
@@ -41,14 +41,20 @@ function Register() {
         }),
       });
 
-      if (response.ok) {
-        navigate('/registrationSuccessful'); // go to successful registration page
+      console.log(response);
+      if (response.status === 201) {
+        console.log("Line 45 is reached");
+        navigate("/registrationSuccessful"); // go to successful registration page
+      } else if (response.status === 409) {
+        setErrorMessage(
+          "This email already has an account. Please login instead"
+        );
       } else {
         const data = await response.json();
-        setErrorMessage(data.message || 'Registration failed');
+        setErrorMessage(data.message || "Registration failed");
       }
     } catch (error) {
-      setErrorMessage('An error occurred during registration');
+      setErrorMessage("An error occurred during registration");
     }
   };
 
@@ -57,7 +63,7 @@ function Register() {
       <h1>Register</h1>
       <p>Please fill in this form to create an account.</p>
       <hr />
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">
           <b>User Name</b>

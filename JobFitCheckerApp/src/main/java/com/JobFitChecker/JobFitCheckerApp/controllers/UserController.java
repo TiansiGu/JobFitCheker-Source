@@ -114,11 +114,6 @@ public class UserController {
                 User userProfile = userService.getUserProfile(loggedInUserId);
 
                 if (userProfile != null) {
-                    // Create a map to hold the user details
-//                    Map<String, Object> returnObj = new HashMap<>();
-//                    returnObj.put("userId", loggedInUserId);
-//                    returnObj.put("email", userProfile.getEmail());
-
                     return ResponseEntity.ok(userProfile); // Spring will automatically convert User object to JSON
                 } else {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found in the database.");
@@ -154,16 +149,18 @@ public class UserController {
 
     @GetMapping("/check-email")
     public ResponseEntity<Boolean> checkEmail(@RequestParam String email) {
-        System.out.println("The email to check: " + email);
+        log.info("Checking if email {} exists: ", email);
+
         try {
             if (!(email.isEmpty())) {
                 boolean emailExists = userService.findByEmail(email) != null;
                 return ResponseEntity.ok(emailExists);
             }
             return ResponseEntity.badRequest().body(false);
-        } catch  (Exception ex)  {
+
+        } catch (Exception ex)  {
+            log.error("Failed to check email: ", ex);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
-
 }
