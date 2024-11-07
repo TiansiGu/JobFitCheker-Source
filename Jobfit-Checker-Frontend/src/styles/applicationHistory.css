@@ -1,0 +1,28 @@
+.application-graph-container {
+    margin-bottom: 20px;
+}
+
+.application-container {
+    width: 80%;
+    padding: 20px;
+    text-align: left;
+    margin: 10px;
+}
+
+.add-application-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+button[name="addButton"]{
+    font-size: 20px;
+    width: auto;
+    min-width: 100px;
+    background-color: blue;
+    cursor: pointer;
+}
+
+.add-application-container button:hover {
+    background-color: darkblue;
+}
