@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import '../styles/style.css';
 
 export default function CheckQualification() {
     const [jobDescription, setJobDescription] = useState(null);

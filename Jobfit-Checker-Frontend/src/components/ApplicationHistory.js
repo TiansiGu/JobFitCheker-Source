@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react"
 import {Line} from 'react-chartjs-2';
+import '../styles/style.css';
+import  '../styles/applicationHistory.css';
+
 import {
     Chart as ChartJS,
     LinearScale,
@@ -24,6 +27,7 @@ ChartJS.register(
 
 
 
+
 export default function ApplicationHistory () {
     const [applications, setApplications] = useState([]);
     const [graphData, setGraphData] = useState({
@@ -31,6 +35,14 @@ export default function ApplicationHistory () {
         datasets: [],
     });
     const today = new Date().toDateString();
+    const [applicationData, setApplicationData] = useState({
+        company: '',
+        position: '',
+        JobId: '',
+    });
+
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const fetchAllApplicationData = async () => {
         try {
@@ -38,7 +50,7 @@ export default function ApplicationHistory () {
                 credentials: "include", // Ensures cookies and sessions are included
             });
             if (!response.ok) {
-                throw new Error("Failed to fetch profile data");
+                console.error("Failed to fetch profile data");
             }
             const data = await response.json();
             console.log("Application history: " + JSON.stringify(data));
@@ -120,12 +132,92 @@ export default function ApplicationHistory () {
         },
     };
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setApplicationData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSuccessMessage('');
+        setErrorMessage('');
+        console.log(applicationData);
+
+        try {
+            const response = await fetch('http://localhost:8080/application', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(applicationData),
+            });
+
+
+            if (response.status === 200) {
+                setSuccessMessage(`Successfully added application record for ${applicationData.position} at ${applicationData.company}.`);
+                setApplicationData({ company: '', position: '', jobId: '' });
+            } else if (response.status === 409) {
+                setErrorMessage('Duplicate record: This application already exists.');
+            } else {
+                setErrorMessage('Failed to add application record.');
+            }
+        } catch (e) {
+            setErrorMessage('An error occurred when adding the application')
+        }
+    }
+
     return (
         <div>
-            <h1>Application History</h1>
-            <p>Each data point represents the number of applications for a week starting on Monday.</p>
-            <Line data={graphData} options={options}/>
+            <div className="application-graph-container">
+                <h1>Application History</h1>
+                <p>Each data point represents the number of applications for a week starting on Monday.</p>
+                <Line data={graphData} options={options}/>
+            </div>
+            <hr />
 
+            <div className="application-container">
+                <h1>Check if you applied before for a position</h1>
+                <div className="add-application-container">
+                    <h3>Add an application to your history</h3>
+                    <form onSubmit={handleSubmit} method="POST">
+                        <label htmlFor="company">Company:</label>
+                        <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            value={applicationData.company}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label htmlFor="position">Position:</label>
+                        <input
+                            type="text"
+                            id="position"
+                            name="position"
+                            value={applicationData.position}
+                            onChange={handleChange}
+                            required
+                        />
+                        <label htmlFor="jobId">Job Id:</label>
+                        <input
+                            type="text"
+                            id="jobId"
+                            name="jobId"
+                            value={applicationData.jobId}
+                            onChange={handleChange}
+                            required
+                        />
+                        <button type="submit" name="addButton">Add</button>
+                        {/* Success and error messages displayed at the bottom */}
+                        {successMessage && <p className="success-message">{successMessage}</p>}
+                        {errorMessage && <p className="error-message">{errorMessage}</p>}
+                    </form>
+                </div>
+            </div>
         </div>
     );
 

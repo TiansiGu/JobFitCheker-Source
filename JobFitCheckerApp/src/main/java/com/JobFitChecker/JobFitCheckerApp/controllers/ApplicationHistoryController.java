@@ -3,6 +3,7 @@ package com.JobFitChecker.JobFitCheckerApp.controllers;
 import com.JobFitChecker.JobFitCheckerApp.model.entities.ApplicationRecord;
 import com.JobFitChecker.JobFitCheckerApp.model.data.ApplicationRecordDTO;
 import com.JobFitChecker.JobFitCheckerApp.model.data.WeeklyApplicationCountDTO;
+import com.JobFitChecker.JobFitCheckerApp.model.entities.User;
 import com.JobFitChecker.JobFitCheckerApp.services.userActivity.ApplicationHistoryService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -47,7 +48,14 @@ public class ApplicationHistoryController {
 //                }
 //            }
 //        }
-        long loggedInUserId = 7L; // ToDO: delete the hardcoded userId and uncomment above after connecting to FE
+
+        if (session == null) {
+            log.error("No session found for request");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
+            }
+        Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
+//        record.setCreateTime(LocalDateTime.now());
+//        long loggedInUserId = 7L; // ToDO: delete the hardcoded userId and uncomment above after connecting to FE
         try {
             ApplicationRecordDTO existingRecord = applicationHistoryService.retrieveApplicationRecords(
                     loggedInUserId, record.getCompany(), record.getPosition(), record.getJobId()
@@ -71,7 +79,10 @@ public class ApplicationHistoryController {
     public ResponseEntity<?> handleRetrieveApplicationCountsForUserWithinTwoMonths(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        long loggedInUserId = 7L; // ToDO: Change to dynamic userId
+//        long loggedInUserId = 7L; // ToDO: Change to dynamic userId
+        if (session == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
+        Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
         try {
             List<WeeklyApplicationCountDTO> weeklyCounts = applicationHistoryService.retrieveApplicationCountsForUserInTwoMonths(loggedInUserId);
             return ResponseEntity.ok(weeklyCounts);
@@ -90,7 +101,10 @@ public class ApplicationHistoryController {
     ) {
         HttpSession session = request.getSession(false);
 
-        long loggedInUserId = 7L; // ToDO: Change to dynamic userId
+//        long loggedInUserId = 7L; // ToDO: Change to dynamic userId
+        if (session == null)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
+        Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
         try {
             ApplicationRecordDTO record = applicationHistoryService.retrieveApplicationRecords(loggedInUserId, company, position, jobId);
             if (record == null)
