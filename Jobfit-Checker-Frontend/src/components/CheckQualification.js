@@ -43,8 +43,16 @@ export default function CheckQualification() {
           required
           rows="20"
           cols="80"
-        />
-        <button type="submit">Check</button>
+        /><br />
+        <button type="submit"
+                style={{
+                padding: "5px 10px",
+                fontSize: "14px",
+                marginTop: "10px", width: "auto",
+                cursor: "pointer",
+                }}>
+            Check
+        </button>
       </form>
       <div style={{ textAlign: "left", marginTop: "20px", padding: "10px" }}>
         <h1>Result</h1>

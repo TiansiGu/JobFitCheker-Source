@@ -157,6 +157,8 @@ export default function ApplicationHistory() {
             `Successfully added application record for ${applicationData.position} at ${applicationData.company}.`
           );
           setApplicationData({ company: "", position: "", jobId: "" });
+          // Fetch the updated application data to refresh the chart
+          fetchAllApplicationData();
         } else if (response.status === 409) {
           setErrorMessage("Duplicate record: This application already exists.");
         } else {
