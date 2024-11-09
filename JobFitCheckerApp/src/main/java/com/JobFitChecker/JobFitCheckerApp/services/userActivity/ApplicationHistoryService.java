@@ -78,7 +78,7 @@ public final class ApplicationHistoryService {
     }
 
     public ApplicationRecordDTO retrieveApplicationRecords(long userId, String company, String position, String jobId) {
-        if (jobId != null && jobId.trim().isEmpty())
+        if (jobId != null && (jobId.trim().isEmpty() || jobId.equals("undefined")))
             jobId = null;
 
         log.info("Retrieving application record for user {} at company: {}, position: {}, jobId: {}...", userId, company, position, jobId);
