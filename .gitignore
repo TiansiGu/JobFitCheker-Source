@@ -42,6 +42,8 @@ JobFitCheckerApp/.env
 .env.test.local
 .env.production.local
 
+ResumePostProcessor/.env
+
 # Ignore private key files (such as PEM)
 *.pem
 
