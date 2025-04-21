@@ -1,0 +1,13 @@
+FROM node:23-alpine3.20
+
+WORKDIR /JobFitChecker/Jobfit-Checker-Frontend
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
