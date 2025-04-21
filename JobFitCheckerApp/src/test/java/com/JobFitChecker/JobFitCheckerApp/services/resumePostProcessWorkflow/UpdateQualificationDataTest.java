@@ -1,6 +1,7 @@
 package com.JobFitChecker.JobFitCheckerApp.services.resumePostProcessWorkflow;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -12,6 +13,9 @@ public class UpdateQualificationDataTest {
 
     @Autowired
     private UpdateQualificationActivity updateQualificationData;
+
+    @Autowired
+    private ResumePostProcessor resumePostProcessor;
 
     @Test
     public void testUpdateQualification() {
@@ -31,5 +35,10 @@ public class UpdateQualificationDataTest {
         // Call the updateQualification method
         updateQualificationData.updateQualification(qualification);
 
+    }
+
+    @AfterEach
+    void tearDown() {
+        resumePostProcessor.stopProcessing();
     }
 }

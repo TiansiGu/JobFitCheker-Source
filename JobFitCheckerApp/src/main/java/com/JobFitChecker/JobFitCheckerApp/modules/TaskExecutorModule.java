@@ -20,6 +20,8 @@ public class TaskExecutorModule {
         executor.setMaxPoolSize(1);
         executor.setQueueCapacity(0); // no queue needed for single-threaded execution
         executor.setThreadNamePrefix("ResumePostProcessingExecutor-");
+        executor.setWaitForTasksToCompleteOnShutdown(true); // 🔑Wait for background thread to finish before shutting down
+        executor.setAwaitTerminationSeconds(30);
         executor.initialize();
         return executor;
     }
