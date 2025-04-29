@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./Jobfit-Checker-Frontend 
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: jobfitchecker-frontend
+
+  backend:
+    build:
+      context: ./JobFitCheckerApp  
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: jobfitchecker-app
+    env_file: 
+      - .env
+    environment:
+      - AWS_PROFILE=default
+      - AWS_REGION=us-east-2
+    volumes:
+      - ~/.aws:/root/.aws
+
+  postprocessor:
+    build:
+      context: ./ResumePostProcessor
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    container_name: jobfitchecker-postprocessor
+    env_file: 
+      - .env
+    # environment:
+    #   - AWS_PROFILE=default
+    #   - AWS_REGION=us-east-2
+    volumes:
+      - ~/.aws:/root/.aws
