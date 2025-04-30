@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController // Use @RestController instead of @Controller
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
+@RequestMapping("/api")
 public class WebController {
 
     @RequestMapping("/")

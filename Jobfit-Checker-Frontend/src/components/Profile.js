@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import '../styles/style.css';
+import "../styles/style.css";
 
 export default function Profile() {
   // Create states to handle inputs and data
@@ -21,7 +21,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch("http://localhost:8080/profile", {
+        const response = await fetch("/api/profile", {
           credentials: "include", // Ensures cookies and sessions are included
         });
         if (!response.ok) {
@@ -37,7 +37,7 @@ export default function Profile() {
           phoneNumber: data.phoneNumber,
           degree: data.degree,
           needSponsor: data.needSponsor,
-          resumeName: data.resumeKey ? data.resumeKey.split("@")[1] : null // extract the resume name
+          resumeName: data.resumeKey ? data.resumeKey.split("@")[1] : null, // extract the resume name
         });
         // remember the original info
         setOriginalUserInfo({
@@ -52,27 +52,28 @@ export default function Profile() {
     fetchProfile();
   }, []);
 
-  const checkEmail = async(email) => {
+  const checkEmail = async (email) => {
     try {
-      const response = await fetch(`http://localhost:8080/check-email?email=${encodeURIComponent(email)}`, {
-
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `/api/check-email?email=${encodeURIComponent(email)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to check email');
+        throw new Error("Failed to check email");
       }
       let emailExists = await response.json();
       console.log(emailExists);
       return emailExists; // Return true or false based on the server response
-
     } catch (e) {
       alert("Error checking email: " + e.message);
     }
-  }
+  };
 
   // Handle form submission to update profile information
   const handleSubmit = async (e) => {
@@ -90,7 +91,7 @@ export default function Profile() {
         }
       }
       try {
-        const response = await fetch("http://localhost:8080/update-profile", {
+        const response = await fetch("/api/update-profile", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -113,7 +114,7 @@ export default function Profile() {
       try {
         const formData = new FormData();
         formData.append("resume", resume);
-        const response = await fetch("http://localhost:8080/upload-resume", {
+        const response = await fetch("/api/upload-resume", {
           method: "POST",
           body: formData,
           credentials: "include", // Ensures cookies and sessions are included
@@ -136,7 +137,7 @@ export default function Profile() {
   // Handle resume deletion
   const handleDeleteResume = async () => {
     try {
-      const response = await fetch("http://localhost:8080/delete-resume", {
+      const response = await fetch("/api/delete-resume", {
         method: "DELETE",
         credentials: "include", // Ensures cookies and sessions are included
       });
@@ -169,122 +170,137 @@ export default function Profile() {
       <h1>My Profile</h1>
 
       {/* Update User Information Form */}
-        <form onSubmit={handleSubmit}>
-          <fieldset>
-            <legend><h3>Profile Information</h3></legend>
+      <form onSubmit={handleSubmit}>
+        <fieldset>
+          <legend>
+            <h3>Profile Information</h3>
+          </legend>
 
-            <label htmlFor="firstName">First Name:</label>
-            <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                value={user.firstName}
-                onChange={handleChange}
-                placeholder="Enter your first name"
-            />
-            <br /><br />
-
-            <label htmlFor="lastName">Last Name:</label>
-            <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                value={user.lastName}
-                onChange={handleChange}
-                placeholder="Enter your last name"
-            />
-            <br /><br />
-
-            <label htmlFor="email">Email:</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value={user.email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-            />
-            <br /><br />
-
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={user.phoneNumber}
-                onChange={handleChange}
-                placeholder="Enter your phone number"
-            />
-            <br /><br />
-
-            <label htmlFor="degree">Degree:</label>
-            <input
-                type="text"
-                id="degree"
-                name="degree"
-                value={user.degree}
-                onChange={handleChange}
-                placeholder="Enter your degree"
-            />
-            <br /><br />
-
-            <label htmlFor="needSponsor">Need Sponsorship or not: </label>
-            <select
-                name="needSponsor"
-                value={user.needSponsor}
-                onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </fieldset>
-
+          <label htmlFor="firstName">First Name:</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={user.firstName}
+            onChange={handleChange}
+            placeholder="Enter your first name"
+          />
           <br />
-          <input type="submit" value="Update Profile" />
+          <br />
 
-          <br /><br />
+          <label htmlFor="lastName">Last Name:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={user.lastName}
+            onChange={handleChange}
+            placeholder="Enter your last name"
+          />
+          <br />
+          <br />
 
-          {/* Resume Upload Section */}
-          <fieldset>
-            <legend><h3>Upload Resume</h3></legend>
-            {user.resumeName ? (
-                <div>
-                  <p
-                      style={{
-                        fontSize: "0.8em",
-                        color: "grey",
-                        margin: 0,
-                        padding: 0,
-                        textAlign: "left",
-                      }}
-                  >
-                    Current Resume: {user.resumeName}
-                  </p>
-                  <button type="button" onClick={handleDeleteResume}>
-                    Delete Resume
-                  </button>
-                </div>
-            ) : (
-                <p
-                    style={{
-                      fontSize: "0.8em",
-                      color: "grey",
-                      margin: 0,
-                      padding: 0,
-                      textAlign: "left",
-                    }}
-                >
-                  No resume
-                </p>
-            )}
-            <label htmlFor="resume"></label>
-            <input type="file" id="resume" name="resume" onChange={handleFileChange}/>
-          </fieldset>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={user.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+          />
+          <br />
+          <br />
 
-          <br/>
-          <input type="submit" value="Upload Resume"/>
-        </form>
+          <label htmlFor="phoneNumber">Phone Number:</label>
+          <input
+            type="tel"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={user.phoneNumber}
+            onChange={handleChange}
+            placeholder="Enter your phone number"
+          />
+          <br />
+          <br />
+
+          <label htmlFor="degree">Degree:</label>
+          <input
+            type="text"
+            id="degree"
+            name="degree"
+            value={user.degree}
+            onChange={handleChange}
+            placeholder="Enter your degree"
+          />
+          <br />
+          <br />
+
+          <label htmlFor="needSponsor">Need Sponsorship or not: </label>
+          <select
+            name="needSponsor"
+            value={user.needSponsor}
+            onChange={handleChange}
+          >
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </fieldset>
+
+        <br />
+        <input type="submit" value="Update Profile" />
+
+        <br />
+        <br />
+
+        {/* Resume Upload Section */}
+        <fieldset>
+          <legend>
+            <h3>Upload Resume</h3>
+          </legend>
+          {user.resumeName ? (
+            <div>
+              <p
+                style={{
+                  fontSize: "0.8em",
+                  color: "grey",
+                  margin: 0,
+                  padding: 0,
+                  textAlign: "left",
+                }}
+              >
+                Current Resume: {user.resumeName}
+              </p>
+              <button type="button" onClick={handleDeleteResume}>
+                Delete Resume
+              </button>
+            </div>
+          ) : (
+            <p
+              style={{
+                fontSize: "0.8em",
+                color: "grey",
+                margin: 0,
+                padding: 0,
+                textAlign: "left",
+              }}
+            >
+              No resume
+            </p>
+          )}
+          <label htmlFor="resume"></label>
+          <input
+            type="file"
+            id="resume"
+            name="resume"
+            onChange={handleFileChange}
+          />
+        </fieldset>
+
+        <br />
+        <input type="submit" value="Upload Resume" />
+      </form>
     </div>
   );
 }

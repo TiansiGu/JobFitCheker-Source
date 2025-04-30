@@ -9,17 +9,14 @@ export default function CheckQualification() {
     e.preventDefault();
     setFeedBack(null);
     try {
-      const response = await fetch(
-        `http://localhost:8080/check-qualification`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ jobDescription }),
-        }
-      );
+      const response = await fetch(`/api/check-qualification`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ jobDescription }),
+      });
       if (!response.ok) {
         throw new Error("Error occurred when checking qualification.");
       }
@@ -43,15 +40,19 @@ export default function CheckQualification() {
           required
           rows="20"
           cols="80"
-        /><br />
-        <button type="submit"
-                style={{
-                padding: "5px 10px",
-                fontSize: "14px",
-                marginTop: "10px", width: "auto",
-                cursor: "pointer",
-                }}>
-            Check
+        />
+        <br />
+        <button
+          type="submit"
+          style={{
+            padding: "5px 10px",
+            fontSize: "14px",
+            marginTop: "10px",
+            width: "auto",
+            cursor: "pointer",
+          }}
+        >
+          Check
         </button>
       </form>
       <div style={{ textAlign: "left", marginTop: "20px", padding: "10px" }}>

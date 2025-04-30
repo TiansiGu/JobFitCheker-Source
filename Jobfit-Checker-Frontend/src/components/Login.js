@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
 
 function Login({ setUser }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Reset error message
-    setErrorMessage('');
+    setErrorMessage("");
 
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
+      const response = await fetch("/api/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include', // need this for session management to remain logged in
+        credentials: "include", // need this for session management to remain logged in
 
         body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
-        throw new Error('Login failed: ' + (await response.text()));
+        throw new Error("Login failed: " + (await response.text()));
       }
 
       const data = await response.json();
 
       // Update user state
       setUser(data);
-      console.log('Login Successful');
-      navigate('/home');
+      console.log("Login Successful");
+      navigate("/home");
     } catch (error) {
       setErrorMessage(error.message);
     }

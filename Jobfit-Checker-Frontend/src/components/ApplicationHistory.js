@@ -44,7 +44,7 @@ export default function ApplicationHistory() {
 
   const fetchAllApplicationData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/application-counts", {
+      const response = await fetch("/api/application-counts", {
         credentials: "include", // Ensures cookies and sessions are included
       });
       if (!response.ok) {
@@ -143,7 +143,7 @@ export default function ApplicationHistory() {
 
     try {
       if (action === "addApplication") {
-        const response = await fetch("http://localhost:8080/application", {
+        const response = await fetch("/api/application", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -167,7 +167,7 @@ export default function ApplicationHistory() {
       } else if (action === "trackApplication") {
         const { company, position, jobId } = applicationData;
         const response = await fetch(
-          `http://localhost:8080/application-records?company=${company}&position=${position}&jobId=${jobId}`,
+          `/api/application-records?company=${company}&position=${position}&jobId=${jobId}`,
           {
             method: "GET",
             credentials: "include",

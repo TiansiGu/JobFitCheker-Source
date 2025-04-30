@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @CrossOrigin // Allow all origins, might want to restrict this if it is a production environment
+@RequestMapping("/api")
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
