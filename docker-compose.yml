@@ -18,9 +18,6 @@ services:
     container_name: jobfitchecker-app
     env_file: 
       - .env
-    environment:
-      - AWS_PROFILE=default
-      - AWS_REGION=us-east-2
     volumes:
       - ~/.aws:/root/.aws
 
@@ -33,8 +30,5 @@ services:
     container_name: jobfitchecker-postprocessor
     env_file: 
       - .env
-    # environment:
-    #   - AWS_PROFILE=default
-    #   - AWS_REGION=us-east-2
     volumes:
       - ~/.aws:/root/.aws
