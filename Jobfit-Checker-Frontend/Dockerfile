@@ -10,4 +10,7 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["npm", "run", "build"]
+ENV HOST=0.0.0.0
+ENV DANGEROUSLY_DISABLE_HOST_CHECK=true
+
+CMD ["npm", "start"]
