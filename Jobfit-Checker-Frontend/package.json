@@ -41,9 +41,6 @@
     ]
   },
   "proxy": "http://host.docker.internal:8080",
-  "allowedHosts": [
-    "127.0.0.1"
-  ],
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
