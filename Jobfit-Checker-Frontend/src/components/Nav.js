@@ -8,7 +8,9 @@ const Nav = ({ user, setUser }) => {
 
   useEffect(() => {
     axios
-      .get("/api/currentUser", { withCredentials: true })
+      .get(`${process.env.REACT_APP_API_URL}/api/currentUser`, {
+        withCredentials: true,
+      })
       .then((response) => {
         setUser({ username: response.data });
         console.log("User object:", user); // for checking purpose

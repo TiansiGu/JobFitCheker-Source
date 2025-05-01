@@ -14,15 +14,18 @@ function Login({ setUser }) {
     setErrorMessage("");
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // need this for session management to remain logged in
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include", // need this for session management to remain logged in
 
-        body: JSON.stringify({ email, password }),
-      });
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Login failed: " + (await response.text()));

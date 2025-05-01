@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function RegistrationSuccessful() {
   const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
-      navigate('/');
+      navigate("/");
     }, 5000);
   }, [navigate]);
 

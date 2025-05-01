@@ -6,7 +6,7 @@ function WelcomeMessage() {
 
   useEffect(() => {
     axios
-      .get("/api/welcome") // Make sure the URL matches your server
+      .get(`${process.env.REACT_APP_API_URL}/api/welcome`) // Make sure the URL matches your server
       .then((response) => {
         setMessage(response.data);
       })
