@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/style.css";
+import API_URL from "./config.js";
 
 export default function Profile() {
   // Create states to handle inputs and data
@@ -21,12 +22,9 @@ export default function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/profile`,
-          {
-            credentials: "include", // Ensures cookies and sessions are included
-          }
-        );
+        const response = await fetch(`${API_URL}/api/profile`, {
+          credentials: "include", // Ensures cookies and sessions are included
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch profile data");
         }
@@ -58,9 +56,7 @@ export default function Profile() {
   const checkEmail = async (email) => {
     try {
       const response = await fetch(
-        `${
-          process.env.REACT_APP_API_URL
-        }/api/check-email?email=${encodeURIComponent(email)}`,
+        `${API_URL}/api/check-email?email=${encodeURIComponent(email)}`,
         {
           method: "GET",
           headers: {
@@ -96,17 +92,14 @@ export default function Profile() {
         }
       }
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/update-profile`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-            credentials: "include", // Ensures cookies and sessions are included
-          }
-        );
+        const response = await fetch(`${API_URL}/api/update-profile`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+          credentials: "include", // Ensures cookies and sessions are included
+        });
         if (!response.ok) {
           throw new Error("Failed to update profile");
         }
@@ -122,14 +115,11 @@ export default function Profile() {
       try {
         const formData = new FormData();
         formData.append("resume", resume);
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/upload-resume`,
-          {
-            method: "POST",
-            body: formData,
-            credentials: "include", // Ensures cookies and sessions are included
-          }
-        );
+        const response = await fetch(`${API_URL}/api/upload-resume`, {
+          method: "POST",
+          body: formData,
+          credentials: "include", // Ensures cookies and sessions are included
+        });
         if (!response.ok) {
           throw new Error("Failed to upload resume");
         }
@@ -148,13 +138,10 @@ export default function Profile() {
   // Handle resume deletion
   const handleDeleteResume = async () => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/delete-resume`,
-        {
-          method: "DELETE",
-          credentials: "include", // Ensures cookies and sessions are included
-        }
-      );
+      const response = await fetch(`${API_URL}/api/delete-resume`, {
+        method: "DELETE",
+        credentials: "include", // Ensures cookies and sessions are included
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete the resume");

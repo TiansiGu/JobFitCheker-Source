@@ -1,6 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
+import API_URL from "./config.js";
+
+// let API_URL;
+
+// const hostname = window.location.hostname;
+
+// if (hostname.startsWith("uat.")) {
+//   API_URL = "http://uat.tiansiwork.live";
+// } else if (hostname.startsWith("ga.")) {
+//   API_URL = "http://ga.tiansiwork.live";
+// } else {
+//   API_URL = "http://uat.tiansiwork.live"; // fallback
+// }
+
+console.log("Resolved API_URL:", API_URL);
 
 function Login({ setUser }) {
   const [email, setEmail] = useState("");
@@ -14,18 +29,15 @@ function Login({ setUser }) {
     setErrorMessage("");
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // need this for session management to remain logged in
+      const response = await fetch(`${API_URL}/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include", // need this for session management to remain logged in
 
-          body: JSON.stringify({ email, password }),
-        }
-      );
+        body: JSON.stringify({ email, password }),
+      });
 
       if (!response.ok) {
         throw new Error("Login failed: " + (await response.text()));

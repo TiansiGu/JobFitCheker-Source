@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import axios from "axios";
 import "../styles/style.css";
+import API_URL from "./config.js";
 
 const Nav = ({ user, setUser }) => {
   const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/currentUser`, {
+      .get(`${API_URL}/api/currentUser`, {
         withCredentials: true,
       })
       .then((response) => {
