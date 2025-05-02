@@ -53,11 +53,12 @@ public class ResumeController {
 
     @DeleteMapping("/delete-resume")
     public ResponseEntity<String> handleDeleteResume(HttpServletRequest request) {
+        log.info("Enter delete resume controller");
         HttpSession session = request.getSession(false); // false to prevent creating a new session if none exists
         if (session == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
         Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
-
+        log.info("Trying to delete resume: ", loggedInUserId, ex);
         try {
             resumeService.deleteResume(loggedInUserId);
             return ResponseEntity.status(HttpStatus.OK).body("Delete successful");
