@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/register.css";
+import API_URL from "./config.js";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -29,20 +30,17 @@ function Register() {
     setErrorMessage("");
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
       console.log(response);
       if (response.status === 201) {

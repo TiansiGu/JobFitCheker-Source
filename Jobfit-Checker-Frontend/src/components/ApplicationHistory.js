@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import "../styles/style.css";
 import "../styles/applicationHistory.css";
+import API_URL from "./config.js";
 
 import {
   Chart as ChartJS,
@@ -44,12 +45,9 @@ export default function ApplicationHistory() {
 
   const fetchAllApplicationData = async () => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/application-counts`,
-        {
-          credentials: "include", // Ensures cookies and sessions are included
-        }
-      );
+      const response = await fetch(`${API_URL}/api/application-counts`, {
+        credentials: "include", // Ensures cookies and sessions are included
+      });
       if (!response.ok) {
         console.error("Failed to fetch profile data");
       }
@@ -146,17 +144,14 @@ export default function ApplicationHistory() {
 
     try {
       if (action === "addApplication") {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/application`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(applicationData),
-          }
-        );
+        const response = await fetch(`${API_URL}/api/application`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(applicationData),
+        });
 
         if (response.status === 200) {
           setSuccessMessage(
@@ -173,7 +168,7 @@ export default function ApplicationHistory() {
       } else if (action === "trackApplication") {
         const { company, position, jobId } = applicationData;
         const response = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/application-records?company=${company}&position=${position}&jobId=${jobId}`,
+          `${API_URL}/api/application-records?company=${company}&position=${position}&jobId=${jobId}`,
           {
             method: "GET",
             credentials: "include",

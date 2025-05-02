@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/style.css";
+import API_URL from "./config.js";
 
 export default function CheckQualification() {
   const [jobDescription, setJobDescription] = useState(null);
@@ -9,17 +10,14 @@ export default function CheckQualification() {
     e.preventDefault();
     setFeedBack(null);
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/check-qualification`,
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ jobDescription }),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/check-qualification`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ jobDescription }),
+      });
       if (!response.ok) {
         throw new Error("Error occurred when checking qualification.");
       }

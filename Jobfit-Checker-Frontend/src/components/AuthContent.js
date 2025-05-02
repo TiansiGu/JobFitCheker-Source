@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_URL from "./config.js";
 // for testing delete in the end
 function WelcomeMessage() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/welcome`) // Make sure the URL matches your server
+      .get(`${API_URL}/api/welcome`) // Make sure the URL matches your server
       .then((response) => {
         setMessage(response.data);
       })
