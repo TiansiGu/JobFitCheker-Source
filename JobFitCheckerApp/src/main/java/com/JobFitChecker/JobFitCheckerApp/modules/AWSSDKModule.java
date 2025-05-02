@@ -14,11 +14,9 @@ public class AWSSDKModule {
 
     @Bean
     public S3Client getS3Client() {
-        AwsCredentials creds = DefaultCredentialsProvider.create().resolveCredentials();
-        System.out.println("Using AWS credentials: " + creds.toString());
         return S3Client.builder()
                 .region(Region.US_EAST_2)
-                .credentialsProvider(WebIdentityTokenFileCredentialsProvider.create())
+                .credentialsProvider(DefaultCredentialsProvider.create())
                 .build();
     }
 
