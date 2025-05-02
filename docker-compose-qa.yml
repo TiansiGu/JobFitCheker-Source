@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: ${FRONTEND_IMAGE}
+    ports:
+      - "3000:3000"
+    container_name: jobfitchecker-frontend
+
+  backend:
+    image: ${APP_IMAGE}
+    ports:
+      - "8080:8080"
+    container_name: jobfitchecker-app
+    env_file:
+      - .env
+    volumes:
+      - ~/.aws:/root/.aws
+
+  postprocessor:
+    image: ${POSTPROCESSOR_IMAGE}
+    ports:
+      - "8081:8081"
+    container_name: jobfitchecker-postprocessor
+    env_file:
+      - .env
+    volumes:
+      - ~/.aws:/root/.aws

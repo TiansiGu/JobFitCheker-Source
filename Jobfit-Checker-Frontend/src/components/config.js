@@ -10,10 +10,10 @@ const getCurrentEnv = () => {
   console.log("Host is:", host);
   if (host.startsWith("uat.")) return "uat";
   if (host.startsWith("ga.")) return "ga";
+  if (host.startsWith("green.")) return "green";
 
   // Fallback
-
-  return "uat";
+  return "ga";
 };
 
 const API_URL = API_URLS[getCurrentEnv()];
