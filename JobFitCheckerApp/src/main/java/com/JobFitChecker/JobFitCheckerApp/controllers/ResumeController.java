@@ -58,7 +58,7 @@ public class ResumeController {
         if (session == null)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No user is currently logged in.");
         Long loggedInUserId = ((User) session.getAttribute("loggedInUser")).getUserId();
-        log.info("Trying to delete resume: ", loggedInUserId, ex);
+        log.info("Trying to delete resume: ", loggedInUserId);
         try {
             resumeService.deleteResume(loggedInUserId);
             return ResponseEntity.status(HttpStatus.OK).body("Delete successful");
