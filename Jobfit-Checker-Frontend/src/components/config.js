@@ -1,6 +1,7 @@
 const API_URLS = {
   uat: "http://uat.tiansiwork.live",
   ga: "http://ga.tiansiwork.live",
+  green: "http://green.tiansiwork.live",
 };
 
 // Use a runtime hint from the browser (hostname, subdomain, etc.)
