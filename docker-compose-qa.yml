@@ -14,8 +14,6 @@ services:
     container_name: jobfitchecker-app
     env_file:
       - .env
-    volumes:
-      - ~/.aws:/root/.aws
 
   postprocessor:
     image: ${POSTPROCESSOR_IMAGE}
@@ -24,5 +22,3 @@ services:
     container_name: jobfitchecker-postprocessor
     env_file:
       - .env
-    volumes:
-      - ~/.aws:/root/.aws

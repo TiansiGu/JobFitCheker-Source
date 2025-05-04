@@ -53,7 +53,8 @@ public final class PollResumeActivity {
         List<Map.Entry<Long, String>> resumeTexts = new ArrayList<>();
         for (Message message : messages) {
             // Extract PDF's object key from the message body (typically JSON)
-            List<String> keys = extractObjectKeys(message.body());
+            List<String> keys = extractObjectKeys(message.body(),message);
+            if (keys.isEmpty()) return resumeTexts;
 
             // Process the S3 file
             String key = URLDecoder.decode(keys.get(0), StandardCharsets.UTF_8);
@@ -89,10 +90,18 @@ public final class PollResumeActivity {
         return document.text();
     }
 
-    private List<String> extractObjectKeys(String messageBody) {
+    private List<String> extractObjectKeys(String messageBody, Message message) {
         JsonObject jsonObject = JsonParser.parseString(messageBody).getAsJsonObject();
-        JsonArray recordsArray = jsonObject.getAsJsonArray("Records");
         List<String> keys = new ArrayList<>();
+        JsonArray recordsArray = jsonObject.getAsJsonArray("Records");
+
+        if (jsonObject.has("Event") && "s3:TestEvent".equals(jsonObject.get("Event").getAsString())) {
+            log.info("Skipping S3 test event...");
+            deleteMessage(message);
+            log.info("Deleted S3 test event.");
+            return keys; // Exit early
+        }
+
         for (JsonElement record : recordsArray) {
             JsonObject recordObject = (JsonObject) record;
             String objectKey = recordObject.getAsJsonObject("s3")
