@@ -2,8 +2,8 @@ body {
     font-family: sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #85a2bf; /* Original bg color, blue */
-    /* background-color: #bce1ca; /* Set to change show microservice update, green */
+    /* background-color: #85a2bf;  Original bg color, blue */
+    background-color: #bce1ca; /* Set to change show microservice update, green */
 }
 
 #divMain {
